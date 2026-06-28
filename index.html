@@ -814,8 +814,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
   <div id="screen-qr" class="screen">
     <div class="card qr-wrapper" id="qr-card">
       <div id="qr-type-badge" class="qr-type-badge">SLIP GENERATED</div>
-      <div class="qr-box" onclick="printSlips()" style="display:none;">
-        <div id="qr-canvas"></div>
+      <div class="qr-box" style="text-align:center; padding:10px 0;">
+        <div id="qr-canvas" style="display:inline-block;"></div>
       </div>
       <div class="qr-hint">👆 <strong>Slip Details</strong></div>
       <div id="qr-summary" style="margin-top:14px; font-size:13px; color:var(--navy); text-align:left;"></div>
@@ -1015,20 +1015,48 @@ function generateQR(type) {
 
   currentSlipData = { type, amt, details, userData: {...userData}, date: new Date().toLocaleDateString('en-IN'), time: new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'}), refNo: 'REF' + Date.now().toString().slice(-8) };
 
-  const qrData = JSON.stringify({ ref: currentSlipData.refNo, bank: userData.bank?.substring(0,30), acc: userData.acc, name: userData.name, type, amt, ...details });
+  // QR contains a full URL so ANY scanner app opens it directly in browser
+  // Change RECEIPT_URL to wherever your tablet_scanner.html is hosted
+  const RECEIPT_URL = 'https://vpbsbd-sys.github.io/tablet_scanner.html';
+
+  const _d = currentSlipData;
+  const dvs = Object.values(details)
+    .filter(v=>v&&String(v).trim())
+    .map(v=>String(v).substring(0,12).replace(/[|~]/g,''))
+    .join('~');
+  const pipeStr = [
+    _d.refNo,
+    (userData.bank||'').substring(0,10).replace(/[|~]/g,''),
+    (userData.acc||'').substring(0,12),
+    (userData.name||'').substring(0,12).replace(/[|~]/g,''),
+    (userData.mobile||'').substring(0,10),
+    (userData.acctype||'').substring(0,3),
+    type,
+    amt||0,
+    _d.date,
+    _d.time,
+    dvs
+  ].join('|');
+  const qrData = RECEIPT_URL + '#' + btoa(pipeStr);
+
 
   showScreen('screen-qr');
   document.getElementById('qr-type-badge').textContent = type.toUpperCase() + ' REQUEST';
   document.getElementById('qr-canvas').innerHTML = '';
 
-  new QRCode(document.getElementById('qr-canvas'), {
-    text: qrData,
-    width: 180,
-    height: 180,
-    colorDark: '#0a2540',
-    colorLight: '#ffffff',
-    correctLevel: QRCode.CorrectLevel.M
-  });
+  try {
+    new QRCode(document.getElementById('qr-canvas'), {
+      text: qrData,
+      width: 240,
+      height: 240,
+      colorDark: '#000000',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.L
+    });
+  } catch(e) {
+    document.getElementById('qr-canvas').innerHTML =
+      '<div style="color:red;font-size:12px;padding:10px;">QR Error: ' + e.message + '</div>';
+  }
 
   let summaryHTML = `<div style="border:1px solid var(--border); border-radius:10px; overflow:hidden;">`;
   const rows = [
@@ -1500,3 +1528,4 @@ function setDenom(val, qty) {
 </script>
 </body>
 </html>
+
