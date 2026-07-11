@@ -321,14 +321,15 @@ async function processEncryptedData(encrypted) {
 // URL HASH — when QR scanned by phone camera (opens URL directly)
 // ================================================================
 window.addEventListener('load', async () => {
-  const hash = decodeURIComponent(location.hash.slice(1));
-  if(hash && hash.length > 20) {
-    // Receipt data in URL — process it
+  // Read encrypted data from ?d= query parameter (more reliable than # hash)
+  const params = new URLSearchParams(location.search);
+  const data = params.get('d');
+  if(data && data.length > 20) {
     document.getElementById('waiting-mode').style.display = 'none';
     document.getElementById('receipt-mode').style.display = 'block';
     document.getElementById('receipt-body').innerHTML =
-      '<div style="text-align:center;padding:30px;color:#666;">🔐 Decrypting receipt...</div>';
-    await processEncryptedData(hash);
+      '<div style="text-align:center;padding:30px;color:#666;">🔐 Decrypting your receipt...</div>';
+    await processEncryptedData(data);
   } else {
     document.getElementById('waiting-mode').style.display = 'block';
   }
@@ -337,7 +338,7 @@ window.addEventListener('load', async () => {
 function goBack() {
   document.getElementById('receipt-mode').style.display = 'none';
   document.getElementById('waiting-mode').style.display = 'block';
-  location.hash = '';
+  history.replaceState(null,'',location.pathname);
 }
 
 // ================================================================
@@ -391,7 +392,12 @@ function tick() {
         cancelAnimationFrame(raf);
         // Extract hash from URL
         let encrypted = code.data;
-        if(encrypted.includes('#')) encrypted = decodeURIComponent(encrypted.split('#')[1]);
+        // Extract data from ?d= param or # hash
+        if(encrypted.includes('?d=')) {
+          encrypted = encrypted.split('?d=')[1].split('&')[0];
+        } else if(encrypted.includes('#')) {
+          encrypted = decodeURIComponent(encrypted.split('#')[1]);
+        }
         processEncryptedData(encrypted);
         return;
       }
@@ -416,3 +422,4 @@ function setStatus(type, msg) {
 </script>
 </body>
 </html>
+
