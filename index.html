@@ -3,211 +3,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Kolhapur Co-operative Bank Self-Service Portal">
 <title>Kolhapur Co-operative Bank Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-:root {
-  --navy: #0a2540;
-  --gold: #c9a84c;
-  --gold-light: #f0d58c;
-  --cream: #fdfaf4;
-  --blue: #1a4b8c;
-  --light-blue: #e8f0fb;
-  --green: #1a7a4a;
-  --orange: #d4691a;
-  --red: #c0392b;
-  --purple: #6b3fa0;
-  --gray: #8a99b3;
-  --border: #d0dbe8;
-  --white: #ffffff;
-  --shadow: 0 4px 24px rgba(10,37,64,0.10);
-  --shadow-lg: 0 8px 40px rgba(10,37,64,0.16);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--cream); min-height: 100vh; }
-
-/* ===== TOP HEADER ===== */
-.top-bar { background: var(--navy); color: var(--gold-light); font-size: 11px; padding: 5px 20px; display: flex; justify-content: space-between; align-items: center; }
-.top-bar span { display: flex; align-items: center; gap: 5px; }
-.main-header { background: linear-gradient(135deg, var(--navy) 0%, #163262 100%); padding: 16px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); position: sticky; top: 0; z-index: 100; }
-.logo-icon { width: 50px; height: 50px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 0 0 3px rgba(201,168,76,0.3); }
-.header-text h1 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 18px; line-height: 1.2; }
-.header-text p { color: var(--gold-light); font-size: 11px; margin-top: 2px; }
-.user-badge { margin-left: auto; background: rgba(255,255,255,0.12); border: 1px solid rgba(201,168,76,0.4); border-radius: 30px; padding: 6px 14px; color: var(--gold-light); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-.user-badge:hover { background: rgba(255,255,255,0.2); }
-
-/* ===== LAYOUT ===== */
-.app { max-width: 520px; margin: 0 auto; padding: 16px 12px 40px; }
-
-/* ===== CARDS ===== */
-.card { background: var(--white); border-radius: 16px; padding: 22px; margin-bottom: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); }
-.card-title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
-.card-title .icon { font-size: 20px; }
-
-/* ===== SCREENS ===== */
-.screen { display: none; }
-.screen.active { display: block; }
-
-/* ===== FORM ===== */
-.field { margin-bottom: 14px; }
-label { display: block; font-size: 11px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
-input, select, textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--navy); background: var(--white); transition: border 0.2s, box-shadow 0.2s; }
-input:focus, select:focus, textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,75,140,0.10); }
-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a99b3' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
-input[type="number"] { -moz-appearance: textfield; }
-input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-.amt-big { font-size: 28px; text-align: center; font-weight: 600; letter-spacing: 1px; }
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-
-/* ===== BUTTONS ===== */
-.btn { width: 100%; padding: 14px; border-radius: 30px; border: none; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; }
-.btn-primary { background: linear-gradient(135deg, var(--blue), var(--navy)); color: var(--white); box-shadow: 0 4px 14px rgba(26,75,140,0.3); }
-.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,75,140,0.4); }
-.btn-gold { background: linear-gradient(135deg, var(--gold), #a07830); color: var(--white); box-shadow: 0 4px 14px rgba(201,168,76,0.3); }
-.btn-gold:hover { transform: translateY(-1px); }
-.btn-outline { background: transparent; border: 2px solid var(--border); color: var(--navy); }
-.btn-outline:hover { border-color: var(--blue); color: var(--blue); background: var(--light-blue); }
-.btn-green { background: linear-gradient(135deg, #1a7a4a, #0d5233); color: white; box-shadow: 0 4px 14px rgba(26,122,74,0.3); }
-.btn-sm { padding: 8px 16px; font-size: 13px; margin-top: 0; width: auto; border-radius: 20px; }
-
-/* ===== MENU GRID ===== */
-.service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.service-btn { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.service-btn:hover { border-color: var(--blue); background: var(--light-blue); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(26,75,140,0.12); }
-.service-btn .s-icon { font-size: 30px; }
-.service-btn .s-label { font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.3; }
-.service-btn .s-sub { font-size: 10px; color: var(--gray); }
-.service-btn.color-green { border-color: #c0e6d2; background: #f0faf5; }
-.service-btn.color-orange { border-color: #f5d9b8; background: #fdf4ea; }
-.service-btn.color-purple { border-color: #dccff0; background: #f5f0fd; }
-.service-btn.color-red { border-color: #f5c0bb; background: #fdf0ef; }
-.service-btn.color-blue { border-color: #c0d4f0; background: #eef4fd; }
-.service-btn.color-teal { border-color: #b8e0e8; background: #eef8fb; }
-
-/* ===== WELCOME CARD ===== */
-.welcome-card { background: linear-gradient(135deg, var(--navy) 0%, #163262 100%); border-radius: 16px; padding: 22px; margin-bottom: 16px; color: white; position: relative; overflow: hidden; }
-.welcome-card::before { content: ''; position: absolute; right: -30px; top: -30px; width: 120px; height: 120px; background: rgba(201,168,76,0.12); border-radius: 50%; }
-.welcome-card::after { content: ''; position: absolute; right: 20px; bottom: -40px; width: 80px; height: 80px; background: rgba(201,168,76,0.08); border-radius: 50%; }
-.wc-greeting { font-size: 12px; color: var(--gold-light); text-transform: uppercase; letter-spacing: 1px; }
-.wc-name { font-family: 'Playfair Display', serif; font-size: 22px; margin: 4px 0 12px; }
-.wc-info { display: flex; gap: 20px; }
-.wc-pill { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 5px 12px; font-size: 11px; }
-
-/* ===== DENOM TABLE ===== */
-.denom-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
-.denom-table th { background: var(--light-blue); color: var(--navy); font-size: 11px; text-transform: uppercase; padding: 8px; text-align: center; }
-.denom-table td { padding: 6px 8px; text-align: center; border-bottom: 1px solid var(--border); font-size: 13px; }
-.denom-table input { width: 70px; padding: 6px 8px; text-align: center; margin: 0; border-radius: 6px; }
-.total-bar { background: var(--navy); color: white; border-radius: 10px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin: 10px 0; }
-.total-bar .lbl { font-size: 12px; color: var(--gold-light); }
-.total-bar .amt { font-size: 22px; font-weight: 700; font-family: 'Playfair Display', serif; }
-
-/* ===== DIVIDER ===== */
-.divider { border: none; border-top: 1.5px dashed var(--border); margin: 14px 0; }
-
-/* ===== QR SECTION ===== */
-.qr-wrapper { text-align: center; padding: 10px; }
-.qr-box { display: inline-block; padding: 16px; background: white; border-radius: 12px; box-shadow: var(--shadow-lg); cursor: pointer; transition: transform 0.2s; border: 3px solid var(--gold); position: relative; }
-.qr-box:hover { transform: scale(1.03); }
-.qr-hint { font-size: 12px; color: var(--gray); margin-top: 10px; }
-.qr-hint strong { color: var(--blue); }
-.qr-type-badge { display: inline-block; background: var(--navy); color: var(--gold-light); font-size: 11px; font-weight: 600; padding: 4px 14px; border-radius: 20px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-
-/* ===== ALERT/INFO ===== */
-.info-box { background: var(--light-blue); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 10px 14px; font-size: 12px; color: var(--navy); margin-bottom: 12px; }
-.success-box { background: #e8f7ef; border-left: 4px solid var(--green); border-radius: 0 10px 10px 0; padding: 10px 14px; font-size: 12px; color: #1a5c3a; }
-
-/* ===== SLIP STYLES (Print) ===== */
-#print-area { display: none; }
-@media print {
-  body * { visibility: hidden; }
-  #print-area, #print-area * { visibility: visible; }
-  #print-area { position: fixed; left: 0; top: 0; width: 100%; display: block !important; background: white; z-index: 9999; }
-  .slip-wrap { page-break-inside: avoid; }
-}
-.slip-page { width: 100%; max-width: 750px; margin: 0 auto; font-family: 'DM Sans', Arial, sans-serif; }
-.slip-wrap { display: flex; gap: 20px; margin-bottom: 30px; }
-.slip { flex: 1; border: 2px solid #000; padding: 14px; font-size: 11px; position: relative; }
-.slip-bank-copy { background: #d4e8ff; }
-.slip-cust-copy { background: #fff9e6; }
-.slip-copy-tag { position: absolute; top: 6px; right: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; border: 1px solid #000; padding: 2px 6px; }
-.slip-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 10px; }
-.slip-bank-name { font-size: 14px; font-weight: 800; text-transform: uppercase; }
-.slip-type { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-top: 4px; }
-.slip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid #000; margin-bottom: 8px; }
-.slip-cell { padding: 5px 7px; border-right: 1px solid #ccc; font-size: 11px; }
-.slip-cell:last-child { border-right: none; }
-.slip-cell strong { display: block; font-size: 9px; text-transform: uppercase; color: #555; }
-.slip-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 11px; }
-.slip-table th { background: rgba(0,0,0,0.08); font-size: 10px; text-transform: uppercase; padding: 5px 7px; border: 1px solid #999; text-align: left; }
-.slip-table td { padding: 5px 7px; border: 1px solid #bbb; }
-.slip-denom { width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 6px; }
-.slip-denom th { background: rgba(0,0,0,0.06); padding: 3px 5px; border: 1px solid #ccc; text-align: center; }
-.slip-denom td { padding: 3px 5px; border: 1px solid #ccc; text-align: center; }
-.slip-words { border: 1px solid #000; padding: 6px 8px; font-size: 11px; margin-bottom: 8px; background: rgba(255,255,255,0.5); }
-.slip-words strong { font-size: 10px; text-transform: uppercase; display: block; margin-bottom: 2px; color: #444; }
-.slip-signs { display: flex; justify-content: space-between; margin-top: 20px; font-size: 10px; }
-.slip-sign { text-align: center; }
-.slip-sign-line { width: 100px; border-top: 1px solid #000; margin: 0 auto 3px; }
-.slip-ref { font-size: 9px; color: #777; margin-top: 6px; }
-
-/* ===== SECTION HEADER ===== */
-.sec-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.sec-header .back-btn { background: var(--light-blue); border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.sec-header h2 { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--navy); }
-
-/* ===== BADGE ROW ===== */
-.badge-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-.badge { font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
-.badge-blue { background: var(--light-blue); color: var(--blue); }
-.badge-green { background: #e0f4ea; color: var(--green); }
-.badge-gold { background: #fdf3d8; color: #8a6010; }
-
-/* ===== TABS ===== */
-.tabs { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 16px; gap: 0; }
-.tab { padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--gray); border-bottom: 3px solid transparent; cursor: pointer; margin-bottom: -2px; transition: all 0.2s; }
-.tab.active { color: var(--blue); border-bottom-color: var(--blue); }
-
-/* ===== PASSBOOK / HISTORY ===== */
-.txn-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
-.txn-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-.txn-icon.cr { background: #e0f4ea; }
-.txn-icon.dr { background: #fde8e6; }
-.txn-info { flex: 1; }
-.txn-title { font-size: 13px; font-weight: 600; color: var(--navy); }
-.txn-date { font-size: 11px; color: var(--gray); }
-.txn-amt { font-weight: 700; font-size: 14px; }
-.txn-amt.cr { color: var(--green); }
-.txn-amt.dr { color: var(--red); }
-
-/* ===== PROGRESS ===== */
-.step-bar { display: flex; align-items: center; margin-bottom: 20px; }
-.step { flex: 1; text-align: center; position: relative; }
-.step-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--border); color: var(--gray); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; }
-.step-dot.done { background: var(--green); color: white; }
-.step-dot.active { background: var(--blue); color: white; }
-.step-label { font-size: 10px; color: var(--gray); }
-.step-line { height: 2px; flex: 1; background: var(--border); margin-bottom: 16px; }
-.step-line.done { background: var(--green); }
-
-/* ===== VOICE ASSISTANT ===== */
-.voice-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 15px rgba(26,75,140,0.4); cursor: pointer; z-index: 1000; transition: all 0.3s; }
-.voice-btn:hover { transform: scale(1.05); }
-.voice-btn.listening { background: var(--red); animation: pulse 1.5s infinite; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(192, 57, 43, 0); } 100% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0); } }
-.voice-status { position: fixed; bottom: 90px; right: 20px; background: var(--navy); color: white; padding: 10px 15px; border-radius: 10px; font-size: 13px; display: none; z-index: 1000; max-width: 250px; box-shadow: var(--shadow); }
-
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 400px) {
-  .service-grid { grid-template-columns: 1fr 1fr; }
-  .row2 { grid-template-columns: 1fr; }
-}
+:root{--navy:#0a2540;--gold:#c9a84c;--gold-light:#f0d58c;--cream:#fdfaf4;--blue:#1a4b8c;--light-blue:#e8f0fb;--green:#1a7a4a;--orange:#d4691a;--red:#c0392b;--purple:#6b3fa0;--gray:#8a99b3;--border:#d0dbe8;--white:#ffffff;--shadow:0 4px 24px rgba(10,37,64,0.10);--shadow-lg:0 8px 40px rgba(10,37,64,0.16);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);min-height:100vh;}
+.top-bar{background:var(--navy);color:var(--gold-light);font-size:11px;padding:5px 20px;display:flex;justify-content:space-between;align-items:center;}
+.main-header{background:linear-gradient(135deg,var(--navy) 0%,#163262 100%);padding:16px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 16px rgba(0,0,0,0.18);position:sticky;top:0;z-index:100;}
+.logo-icon{width:50px;height:50px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 0 3px rgba(201,168,76,0.3);}
+.header-text h1{font-family:'Playfair Display',serif;color:var(--white);font-size:18px;line-height:1.2;}
+.header-text p{color:var(--gold-light);font-size:11px;margin-top:2px;}
+.user-badge{margin-left:auto;background:rgba(255,255,255,0.12);border:1px solid rgba(201,168,76,0.4);border-radius:30px;padding:6px 14px;color:var(--gold-light);font-size:12px;font-weight:500;cursor:pointer;}
+.sec-badge{background:rgba(26,122,74,0.8);border-radius:20px;padding:4px 10px;color:#fff;font-size:10px;font-weight:600;margin-left:8px;display:flex;align-items:center;gap:4px;}
+.app{max-width:520px;margin:0 auto;padding:16px 12px 40px;}
+.card{background:var(--white);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:var(--shadow);border:1px solid var(--border);}
+.card-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.screen{display:none;}.screen.active{display:block;}
+.field{margin-bottom:14px;}
+label{display:block;font-size:11px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;}
+input,select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--navy);background:var(--white);transition:border 0.2s;}
+input:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,75,140,0.10);}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a99b3' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+input[type="number"]{-moz-appearance:textfield;}
+input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;}
+.amt-big{font-size:28px;text-align:center;font-weight:600;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn{width:100%;padding:14px;border-radius:30px;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--navy));color:var(--white);box-shadow:0 4px 14px rgba(26,75,140,0.3);}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#a07830);color:var(--white);box-shadow:0 4px 14px rgba(201,168,76,0.3);}
+.btn-green{background:linear-gradient(135deg,#1a7a4a,#0d5233);color:white;}
+.btn-outline{background:transparent;border:2px solid var(--border);color:var(--navy);}
+.btn-red{background:linear-gradient(135deg,#c0392b,#96291f);color:white;}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.service-btn{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:18px 12px;text-align:center;cursor:pointer;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.service-btn:hover{border-color:var(--blue);background:var(--light-blue);transform:translateY(-2px);}
+.s-icon{font-size:30px;}.s-label{font-size:13px;font-weight:600;color:var(--navy);}.s-sub{font-size:10px;color:var(--gray);}
+.color-green{border-color:#c0e6d2;background:#f0faf5;}.color-orange{border-color:#f5d9b8;background:#fdf4ea;}
+.color-purple{border-color:#dccff0;background:#f5f0fd;}.color-red{border-color:#f5c0bb;background:#fdf0ef;}
+.color-blue{border-color:#c0d4f0;background:#eef4fd;}.color-teal{border-color:#b8e0e8;background:#eef8fb;}
+.welcome-card{background:linear-gradient(135deg,var(--navy) 0%,#163262 100%);border-radius:16px;padding:22px;margin-bottom:16px;color:white;}
+.wc-greeting{font-size:12px;color:var(--gold-light);text-transform:uppercase;letter-spacing:1px;}
+.wc-name{font-family:'Playfair Display',serif;font-size:22px;margin:4px 0 12px;}
+.wc-info{display:flex;gap:10px;flex-wrap:wrap;}
+.wc-pill{background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:5px 12px;font-size:11px;}
+.denom-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
+.denom-table th{background:var(--light-blue);color:var(--navy);font-size:11px;text-transform:uppercase;padding:8px;text-align:center;}
+.denom-table td{padding:6px 8px;text-align:center;border-bottom:1px solid var(--border);font-size:13px;}
+.denom-table input{width:70px;padding:6px 8px;text-align:center;margin:0;border-radius:6px;}
+.total-bar{background:var(--navy);color:white;border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin:10px 0;}
+.total-bar .lbl{font-size:12px;color:var(--gold-light);}.total-bar .amt{font-size:22px;font-weight:700;font-family:'Playfair Display',serif;}
+.tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:16px;}
+.tab{padding:10px 16px;font-size:13px;font-weight:600;color:var(--gray);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;transition:all 0.2s;}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.sec-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.back-btn{background:var(--light-blue);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.info-box{background:var(--light-blue);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:10px 14px;font-size:12px;color:var(--navy);margin-bottom:12px;}
+.warn-box{background:#fff8e6;border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:10px 14px;font-size:12px;color:#7a5800;margin-bottom:12px;}
+.success-box{background:#e8f7ef;border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:10px 14px;font-size:12px;color:#1a5c3a;}
+/* QR */
+.qr-wrapper{text-align:center;padding:10px;}
+.qr-box{display:inline-block;padding:16px;background:white;border-radius:12px;box-shadow:var(--shadow-lg);border:3px solid var(--gold);}
+.qr-type-badge{display:inline-block;background:var(--navy);color:var(--gold-light);font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
+.qr-expiry{font-size:11px;color:var(--red);font-weight:600;margin-top:8px;}
+.masked{font-family:monospace;letter-spacing:2px;}
+/* TERMS MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px;}
+.modal{background:#fff;border-radius:16px;max-width:480px;width:100%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;}
+.modal-header{background:var(--navy);padding:18px 22px;display:flex;align-items:center;gap:10px;}
+.modal-header h2{font-family:'Playfair Display',serif;color:#fff;font-size:18px;}
+.modal-body{padding:20px 22px;overflow-y:auto;flex:1;font-size:13px;line-height:1.7;color:#333;}
+.modal-body h3{color:var(--navy);font-size:14px;margin:16px 0 6px;font-weight:700;}
+.modal-footer{padding:16px 22px;border-top:1px solid var(--border);display:flex;gap:10px;}
+.modal-footer .btn{margin:0;}
+/* SLIP */
+#print-area{display:none;}
+@media print{body *{visibility:hidden;}#print-area,#print-area *{visibility:visible;}#print-area{position:fixed;left:0;top:0;width:100%;display:block!important;background:white;z-index:9999;}.slip-wrap{page-break-inside:avoid;}}
+.slip-page{width:100%;max-width:750px;margin:0 auto;font-family:'DM Sans',Arial,sans-serif;}
+.slip-wrap{display:flex;gap:20px;margin-bottom:30px;}
+.slip{flex:1;border:2px solid #000;padding:14px;font-size:11px;position:relative;}
+.slip-bank-copy{background:#d4e8ff;}.slip-cust-copy{background:#fff9e6;}
+.slip-copy-tag{position:absolute;top:6px;right:8px;font-size:10px;font-weight:700;text-transform:uppercase;border:1px solid #000;padding:2px 6px;}
+.slip-header{text-align:center;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:10px;}
+.slip-bank-name{font-size:14px;font-weight:800;text-transform:uppercase;}
+.slip-type{font-size:11px;font-weight:700;letter-spacing:1px;margin-top:4px;}
+.slip-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #000;margin-bottom:8px;}
+.slip-cell{padding:5px 7px;border-right:1px solid #ccc;font-size:11px;}
+.slip-cell:last-child{border-right:none;}
+.slip-cell strong{display:block;font-size:9px;text-transform:uppercase;color:#555;}
+.slip-table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:11px;}
+.slip-table th{background:rgba(0,0,0,0.08);font-size:10px;text-transform:uppercase;padding:5px 7px;border:1px solid #999;text-align:left;}
+.slip-table td{padding:5px 7px;border:1px solid #bbb;}
+.slip-words{border:1px solid #000;padding:6px 8px;font-size:11px;margin-bottom:8px;background:rgba(255,255,255,0.5);}
+.slip-words strong{font-size:10px;text-transform:uppercase;display:block;margin-bottom:2px;color:#444;}
+.slip-signs{display:flex;justify-content:space-between;margin-top:20px;font-size:10px;}
+.slip-sign{text-align:center;}
+.slip-sign-line{width:100px;border-top:1px solid #000;margin:0 auto 3px;}
+.slip-ref{font-size:9px;color:#777;margin-top:6px;}
+.slip-denom{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:6px;}
+.slip-denom th{background:rgba(0,0,0,0.06);padding:3px 5px;border:1px solid #ccc;text-align:center;}
+.slip-denom td{padding:3px 5px;border:1px solid #ccc;text-align:center;}
+.voice-btn{position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 15px rgba(26,75,140,0.4);cursor:pointer;z-index:1000;}
+.voice-btn.listening{background:var(--red);animation:pulse 1.5s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(192,57,43,0.7);}70%{box-shadow:0 0 0 15px rgba(192,57,43,0);}100%{box-shadow:0 0 0 0 rgba(192,57,43,0);}}
+.voice-status{position:fixed;bottom:86px;right:20px;background:var(--navy);color:white;padding:10px 15px;border-radius:10px;font-size:13px;display:none;z-index:1000;max-width:250px;}
+@media(max-width:400px){.service-grid{grid-template-columns:1fr 1fr;}.row2{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
+
+<!-- TERMS & PRIVACY MODAL -->
+<div class="modal-overlay" id="terms-modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header"><span style="font-size:24px;">📋</span><h2>Terms of Use & Privacy</h2></div>
+    <div class="modal-body">
+      <h3>🏦 About This Application</h3>
+      <p>This is a self-service slip generation tool for Kolhapur Co-operative Bank members. It helps you generate transaction request slips which you present at the bank counter.</p>
+      <h3>🔒 Data Privacy</h3>
+      <ul style="padding-left:16px;margin-top:4px;">
+        <li>Your registration details are saved <strong>only on your device</strong> (mobile phone) using browser local storage.</li>
+        <li>No personal data is sent to any external server.</li>
+        <li>No data is shared with any third party.</li>
+        <li>You can delete your saved data anytime using the "Clear My Data" option.</li>
+      </ul>
+      <h3>🔐 QR Code Security</h3>
+      <ul style="padding-left:16px;margin-top:4px;">
+        <li>QR codes are encrypted using AES-256 military-grade encryption.</li>
+        <li>Only the bank's authorised kiosk can read QR data.</li>
+        <li>Each QR code is valid for <strong>48 hours only</strong>.</li>
+        <li>QR codes contain a tamper-detection checksum.</li>
+        <li>Keep your QR code private — do not share screenshots.</li>
+      </ul>
+      <h3>⚠️ Important Disclaimer</h3>
+      <p>This app generates <strong>request slips only</strong>. It does not access your bank account, does not process transactions, and is not connected to any banking system. All transactions must be verified and processed by authorised bank staff.</p>
+      <h3>📜 Compliance</h3>
+      <p>This system is designed for internal slip pre-filling only. No sensitive financial data (PAN, Aadhaar, passwords, PINs) should be entered in this application.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" style="margin:0;" onclick="declineTerms()">Decline</button>
+      <button class="btn btn-primary" style="margin:0;" onclick="acceptTerms()">✅ I Accept & Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- CLEAR DATA CONFIRM MODAL -->
+<div class="modal-overlay" id="clear-modal" style="display:none;">
+  <div class="modal" style="max-height:auto;">
+    <div class="modal-header"><span style="font-size:24px;">🗑️</span><h2>Clear My Data</h2></div>
+    <div class="modal-body">
+      <p>This will permanently delete your saved registration details from this device. You will need to register again.</p>
+      <p style="margin-top:10px;color:var(--green);"><strong>✅ This does NOT affect your bank account in any way.</strong></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" style="margin:0;" onclick="document.getElementById('clear-modal').style.display='none'">Cancel</button>
+      <button class="btn btn-red" style="margin:0;" onclick="clearMyData()">🗑️ Yes, Delete My Data</button>
+    </div>
+  </div>
+</div>
 
 <div class="top-bar">
   <span>🏛️ Kolhapur Co-operative Banking Portal</span>
@@ -220,15 +174,19 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     <h1>Sahakari Bank Portal</h1>
     <p>Kolhapur District Co-operative Banking Services</p>
   </div>
-  <div class="user-badge" id="user-badge" onclick="logout()" style="display:none">⬅ Logout</div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+    <div class="sec-badge">🔒 SECURE</div>
+    <div class="user-badge" id="user-badge" onclick="showUserMenu()" style="display:none;">⚙️ Menu</div>
+  </div>
 </div>
 
 <div class="app" id="main-ui">
 
-  <!-- ===== REGISTRATION ===== -->
+  <!-- REGISTRATION -->
   <div id="screen-reg" class="screen active">
     <div class="card">
-      <div class="card-title"><span class="icon">📋</span> Member Registration</div>
+      <div class="card-title">📋 Member Registration</div>
+      <div class="info-box">💾 Your details will be saved on <strong>this device only</strong> — no data sent to any server.</div>
       <div class="field">
         <label>Select Your Bank *</label>
         <select id="reg-bank">
@@ -268,14 +226,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
             <option>Shree Warana Sahakari Bank Ltd., Warananagar</option>
             <option>Shri Yashwant Sahakari Bank Maryadit, Kuditre</option>
             <option>Shri Bharat Urban Cooperative Bank Ltd., Jaysingpur</option>
-            <option>Dr Appasaheb Urf Sa Re Patil Jaysingpur Udgaon Sahakari Bank Ltd., Jaysingpur</option>
             <option>The Ganesh Sahakari Bank Ltd., Kurundwad</option>
-            <option>Swatantrya Senani Late Shripal Alase (Kaka) Kurundwad Urban Cooperative Bank Ltd., Kurundwad</option>
             <option>The Chandgad Urban Cooperative Bank Ltd., Chandgad</option>
             <option>Nandani Sahakari Bank Ltd., Nadani</option>
-            <option>The Kodoli Urban Cooperative Bank Ltd., Kodli</option>
-            <option>Yadrav Cooperative Bank Ltd., Yadrav</option>
-            <option>The Priyadarshini Mahila Sahakari Bank Ltd.</option>
             <option>Raje Vikramsinh Ghatge Cooperative Bank Ltd., Kagal</option>
             <option>Janata Sahakari Bank Ltd., Ajara</option>
             <option>Kumbhi Kasari Sahakari Bank Ltd., Kuditre</option>
@@ -284,42 +237,25 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
         </select>
       </div>
       <div class="row2">
-        <div class="field">
-          <label>Account Type *</label>
-          <select id="reg-acctype">
-            <option value="SB">Savings Account</option>
-            <option value="CA">Current Account</option>
-            <option value="RD">RD Account</option>
-          </select>
+        <div class="field"><label>Account Type *</label>
+          <select id="reg-acctype"><option value="SB">Savings Account</option><option value="CA">Current Account</option><option value="RD">RD Account</option></select>
         </div>
-        <div class="field">
-          <label>Account Number *</label>
-          <input type="number" id="reg-acc" placeholder="e.g. 123456789">
-        </div>
+        <div class="field"><label>Account Number *</label><input type="number" id="reg-acc" placeholder="e.g. 123456789"></div>
       </div>
-      <div class="field">
-        <label>Full Name (as per bank records) *</label>
-        <input type="text" id="reg-name" placeholder="Your Full Name">
-      </div>
+      <div class="field"><label>Full Name (as per bank records) *</label><input type="text" id="reg-name" placeholder="Your Full Name"></div>
       <div class="row2">
-        <div class="field">
-          <label>Mobile Number *</label>
-          <input type="tel" id="reg-mobile" maxlength="10" placeholder="10 digits">
-        </div>
-        <div class="field">
-          <label>Date of Birth</label>
-          <input type="date" id="reg-dob">
-        </div>
+        <div class="field"><label>Mobile Number *</label><input type="tel" id="reg-mobile" maxlength="10" placeholder="10 digits"></div>
+        <div class="field"><label>Date of Birth</label><input type="date" id="reg-dob"></div>
       </div>
-      <div class="field">
-        <label>Address</label>
-        <input type="text" id="reg-addr" placeholder="Village / Town, Dist: Kolhapur">
-      </div>
+      <div class="field"><label>Address</label><input type="text" id="reg-addr" placeholder="Village / Town, Dist: Kolhapur"></div>
       <button class="btn btn-primary" onclick="handleReg()">🚀 Register & Continue</button>
+      <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--gray);">
+        By continuing you agree to our <a href="#" onclick="showTerms()" style="color:var(--blue);">Terms of Use & Privacy Policy</a>
+      </div>
     </div>
   </div>
 
-  <!-- ===== MENU ===== -->
+  <!-- MENU -->
   <div id="screen-menu" class="screen">
     <div class="welcome-card">
       <div class="wc-greeting">Welcome Back</div>
@@ -327,1203 +263,665 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
       <div class="wc-info">
         <div class="wc-pill" id="wc-acc">A/C: —</div>
         <div class="wc-pill" id="wc-bank">—</div>
+        <div class="wc-pill" style="background:rgba(26,122,74,0.3);">🔒 AES-256</div>
       </div>
     </div>
     <div class="service-grid">
-      <div class="service-btn color-green" onclick="openDeposit()">
-        <div class="s-icon">💵</div>
-        <div class="s-label">Deposit Cash / Cheque</div>
-        <div class="s-sub">SB / CA / RD</div>
-      </div>
-      <div class="service-btn color-red" onclick="openWithdraw()">
-        <div class="s-icon">💸</div>
-        <div class="s-label">Withdraw Cash</div>
-        <div class="s-sub">Self / Third Party</div>
-      </div>
-      <div class="service-btn color-blue" onclick="showScreen('screen-neft')">
-        <div class="s-icon">🔁</div>
-        <div class="s-label">NEFT / RTGS</div>
-        <div class="s-sub">Fund Transfer</div>
-      </div>
-      <div class="service-btn color-orange" onclick="showScreen('screen-dd')">
-        <div class="s-icon">📜</div>
-        <div class="s-label">Demand Draft</div>
-        <div class="s-sub">DD Request</div>
-      </div>
-      <div class="service-btn color-purple" onclick="showScreen('screen-fd')">
-        <div class="s-icon">🏛️</div>
-        <div class="s-label">Fixed Deposit</div>
-        <div class="s-sub">FD / TDR Application</div>
-      </div>
-      <div class="service-btn color-teal" onclick="showScreen('screen-rd')">
-        <div class="s-icon">📅</div>
-        <div class="s-label">Recurring Deposit</div>
-        <div class="s-sub">RD Monthly Installment</div>
-      </div>
-      <div class="service-btn color-blue" onclick="showScreen('screen-loan')">
-        <div class="s-icon">🏠</div>
-        <div class="s-label">Loan Application</div>
-        <div class="s-sub">Personal / Gold / Housing</div>
-      </div>
-      <div class="service-btn color-green" onclick="showScreen('screen-cheque')">
-        <div class="s-icon">📑</div>
-        <div class="s-label">Cheque Services</div>
-        <div class="s-sub">Issue / Stop / Enquiry</div>
-      </div>
-      <div class="service-btn color-orange" onclick="showScreen('screen-kyc')">
-        <div class="s-icon">🪪</div>
-        <div class="s-label">KYC Update</div>
-        <div class="s-sub">PAN / Aadhaar</div>
-      </div>
-      <div class="service-btn color-red" onclick="showScreen('screen-closure')">
-        <div class="s-icon">🔒</div>
-        <div class="s-label">Account Services</div>
-        <div class="s-sub">Closure / Nominee</div>
-      </div>
+      <div class="service-btn color-green" onclick="openDeposit()"><div class="s-icon">💵</div><div class="s-label">Deposit Cash / Cheque</div><div class="s-sub">SB / CA / RD</div></div>
+      <div class="service-btn color-red" onclick="showScreen('screen-withdraw')"><div class="s-icon">💸</div><div class="s-label">Withdraw Cash</div><div class="s-sub">Self / Third Party</div></div>
+      <div class="service-btn color-blue" onclick="showScreen('screen-neft')"><div class="s-icon">🔁</div><div class="s-label">NEFT / RTGS</div><div class="s-sub">Fund Transfer</div></div>
+      <div class="service-btn color-orange" onclick="showScreen('screen-dd')"><div class="s-icon">📜</div><div class="s-label">Demand Draft</div><div class="s-sub">DD Request</div></div>
+      <div class="service-btn color-purple" onclick="showScreen('screen-fd')"><div class="s-icon">🏛️</div><div class="s-label">Fixed Deposit</div><div class="s-sub">FD / TDR Application</div></div>
+      <div class="service-btn color-teal" onclick="showScreen('screen-rd')"><div class="s-icon">📅</div><div class="s-label">Recurring Deposit</div><div class="s-sub">RD Monthly Installment</div></div>
+      <div class="service-btn color-blue" onclick="showScreen('screen-loan')"><div class="s-icon">🏠</div><div class="s-label">Loan Application</div><div class="s-sub">Personal / Gold / Housing</div></div>
+      <div class="service-btn color-green" onclick="showScreen('screen-cheque')"><div class="s-icon">📑</div><div class="s-label">Cheque Services</div><div class="s-sub">Issue / Stop / Enquiry</div></div>
+      <div class="service-btn color-orange" onclick="showScreen('screen-kyc')"><div class="s-icon">🪪</div><div class="s-label">KYC Update</div><div class="s-sub">PAN / Aadhaar</div></div>
+      <div class="service-btn color-red" onclick="showScreen('screen-closure')"><div class="s-icon">🔒</div><div class="s-label">Account Services</div><div class="s-sub">Closure / Nominee</div></div>
     </div>
   </div>
 
-  <!-- ===== DEPOSIT ===== -->
+  <!-- DEPOSIT -->
   <div id="screen-deposit" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>Cash / Cheque Deposit</h2>
-      </div>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>Cash / Cheque Deposit</h2></div>
       <div class="tabs">
         <div class="tab active" id="tab-cash" onclick="switchTab('cash')">💵 Cash</div>
         <div class="tab" id="tab-cheque" onclick="switchTab('cheque')">📑 Cheque</div>
         <div class="tab" id="tab-both" onclick="switchTab('both')">💵+📑 Both</div>
       </div>
-      <div id="cash-section">
-        <table class="denom-table">
-          <thead><tr><th>Note ₹</th><th>Qty</th><th>Amount ₹</th></tr></thead>
-          <tbody id="denom-tbody"></tbody>
-        </table>
-      </div>
+      <div id="cash-section"><table class="denom-table"><thead><tr><th>Note ₹</th><th>Qty</th><th>Amount ₹</th></tr></thead><tbody id="denom-tbody"></tbody></table></div>
       <div id="cheque-section" style="display:none">
         <div class="row2">
-          <div class="field">
-            <label>Cheque Bank</label>
-            <input type="text" id="chq-bank" placeholder="Bank Name">
-          </div>
-          <div class="field">
-            <label>Cheque No.</label>
-            <input type="text" id="chq-no" placeholder="6-digit No.">
-          </div>
+          <div class="field"><label>Cheque Bank</label><input type="text" id="chq-bank" placeholder="Bank Name"></div>
+          <div class="field"><label>Cheque No.</label><input type="text" id="chq-no" placeholder="6-digit No."></div>
         </div>
         <div class="row2">
-          <div class="field">
-            <label>Cheque Date</label>
-            <input type="date" id="chq-date">
-          </div>
-          <div class="field">
-            <label>Cheque Amount ₹</label>
-            <input type="number" id="chq-amt" oninput="updateDepTotal()" placeholder="0">
-          </div>
+          <div class="field"><label>Cheque Date</label><input type="date" id="chq-date"></div>
+          <div class="field"><label>Cheque Amount ₹</label><input type="number" id="chq-amt" oninput="updateDepTotal()" placeholder="0"></div>
         </div>
       </div>
-      <div class="total-bar">
-        <div><div class="lbl">Total Deposit Amount</div></div>
-        <div class="amt">₹ <span id="dep-total">0</span></div>
-      </div>
-      <div class="field">
-        <label>Deposit in Account (if different)</label>
-        <input type="text" id="dep-acc-override" placeholder="Leave blank for own account">
-      </div>
-      <button class="btn btn-primary" onclick="generateQR('Deposit')">🖨️ Generate & Print Slip</button>
+      <div class="total-bar"><div><div class="lbl">Total Deposit Amount</div></div><div class="amt">₹ <span id="dep-total">0</span></div></div>
+      <button class="btn btn-primary" onclick="generateQR('Deposit')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== WITHDRAW ===== -->
+  <!-- WITHDRAW -->
   <div id="screen-withdraw" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>Cash Withdrawal</h2>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>Cash Withdrawal</h2></div>
+      <div class="field"><label>Withdrawal Amount ₹ *</label><input type="number" id="withdraw-amt" class="amt-big" placeholder="0.00"></div>
+      <div class="field"><label>Mode *</label>
+        <select id="wd-mode"><option value="self">Self</option><option value="bearer">Bearer / Third Party</option></select>
       </div>
-      <div class="field">
-        <label>Withdrawal Mode</label>
-        <select id="wd-mode">
-          <option value="self">Self Withdrawal</option>
-          <option value="bearer">Bearer / Third Party</option>
-        </select>
+      <div class="field" id="wd-bearer-field" style="display:none"><label>Bearer Name</label><input type="text" id="wd-bearer" placeholder="Person collecting cash"></div>
+      <div class="field"><label>Purpose</label>
+        <select id="wd-purpose"><option>Personal Use</option><option>Business</option><option>Medical</option><option>Education</option><option>Agriculture</option><option>Other</option></select>
       </div>
-      <div class="field">
-        <label>Amount ₹</label>
-        <input type="number" id="withdraw-amt" class="amt-big" placeholder="0">
-      </div>
-      <div class="field" id="wd-bearer-field" style="display:none">
-        <label>Bearer Name</label>
-        <input type="text" id="bearer-name" placeholder="Name of bearer">
-      </div>
-      <div class="field">
-        <label>Purpose</label>
-        <select id="wd-purpose">
-          <option>Personal Use</option>
-          <option>Business Expenses</option>
-          <option>Medical</option>
-          <option>Educational</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <button class="btn btn-primary" onclick="generateQR('Withdraw')">🖨️ Generate & Print Slip</button>
+      <button class="btn btn-primary" onclick="generateQR('Withdraw')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== NEFT / RTGS ===== -->
+  <!-- NEFT -->
   <div id="screen-neft" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>NEFT / RTGS Transfer</h2>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>NEFT / RTGS / IMPS Transfer</h2></div>
+      <div class="warn-box">⚠️ Do not enter passwords, PINs or OTPs in this form.</div>
+      <div class="field"><label>Transfer Type *</label>
+        <select id="neft-type"><option value="NEFT">NEFT</option><option value="RTGS">RTGS</option><option value="IMPS">IMPS</option></select>
       </div>
-      <div class="field">
-        <label>Transfer Type</label>
-        <select id="neft-type">
-          <option value="NEFT">NEFT (up to ₹2 Lakh)</option>
-          <option value="RTGS">RTGS (₹2 Lakh and above)</option>
-          <option value="IMPS">IMPS (Instant, any amount)</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Beneficiary Name *</label>
-        <input type="text" id="ben-name" placeholder="Full Name">
-      </div>
+      <div class="field"><label>Transfer Amount ₹ *</label><input type="number" id="neft-amt" class="amt-big" placeholder="0.00"></div>
+      <div class="field"><label>Beneficiary Name *</label><input type="text" id="ben-name" placeholder="Full Name"></div>
+      <div class="field"><label>Beneficiary A/C No. *</label><input type="number" id="ben-acc" placeholder="Account Number"></div>
       <div class="row2">
-        <div class="field">
-          <label>Account Number *</label>
-          <input type="number" id="ben-acc" placeholder="Account No.">
-        </div>
-        <div class="field">
-          <label>IFSC Code *</label>
-          <input type="text" id="ben-ifsc" placeholder="e.g. KKBK0001234" maxlength="11" style="text-transform:uppercase">
-        </div>
+        <div class="field"><label>IFSC Code *</label><input type="text" id="ben-ifsc" placeholder="e.g. SBIN0001234" style="text-transform:uppercase"></div>
+        <div class="field"><label>Beneficiary Bank</label><input type="text" id="ben-bank" placeholder="Bank Name"></div>
       </div>
-      <div class="field">
-        <label>Beneficiary Bank & Branch</label>
-        <input type="text" id="ben-bank" placeholder="Bank & Branch Name">
-      </div>
-      <div class="field">
-        <label>Amount ₹ *</label>
-        <input type="number" id="neft-amt" class="amt-big" placeholder="0">
-      </div>
-      <div class="field">
-        <label>Payment Reference / Remarks</label>
-        <input type="text" id="neft-remarks" placeholder="Purpose of transfer">
-      </div>
-      <button class="btn btn-primary" onclick="generateQR('NEFT')">🖨️ Generate & Print Slip</button>
+      <div class="field"><label>Remarks</label><input type="text" id="neft-remarks" placeholder="Purpose of transfer"></div>
+      <button class="btn btn-primary" onclick="generateQR('NEFT')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== DD ===== -->
+  <!-- DD -->
   <div id="screen-dd" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>Demand Draft Request</h2>
-      </div>
-      <div class="info-box">ℹ️ DD charges apply. Please enquire at the counter for current rates.</div>
-      <div class="field">
-        <label>In Favour of (Payee Name) *</label>
-        <input type="text" id="dd-favor" placeholder="Name as on DD">
-      </div>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>Demand Draft</h2></div>
+      <div class="field"><label>DD Amount ₹ *</label><input type="number" id="dd-amt" class="amt-big" placeholder="0.00"></div>
+      <div class="field"><label>In Favour of *</label><input type="text" id="dd-favor" placeholder="Payee Name"></div>
+      <div class="field"><label>Payable at (City) *</label><input type="text" id="dd-payable" placeholder="City Name"></div>
       <div class="row2">
-        <div class="field">
-          <label>Payable At (City) *</label>
-          <input type="text" id="dd-payable" placeholder="City Name">
-        </div>
-        <div class="field">
-          <label>DD Amount ₹ *</label>
-          <input type="number" id="dd-amt" class="amt-big" placeholder="0">
-        </div>
+        <div class="field"><label>Purpose</label><input type="text" id="dd-purpose" placeholder="Purpose"></div>
+        <div class="field"><label>Debit From A/C</label><input type="text" id="dd-debit" placeholder="A/C No."></div>
       </div>
-      <div class="field">
-        <label>Purpose of DD</label>
-        <input type="text" id="dd-purpose" placeholder="e.g. University fees, Property purchase">
-      </div>
-      <div class="field">
-        <label>Debit from Account</label>
-        <select id="dd-debit">
-          <option value="self">My Account (Registered)</option>
-          <option value="cash">Cash Payment</option>
-        </select>
-      </div>
-      <button class="btn btn-primary" onclick="generateQR('DD')">🖨️ Generate DD Slip</button>
+      <button class="btn btn-primary" onclick="generateQR('DD')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== FD ===== -->
+  <!-- FD -->
   <div id="screen-fd" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>Fixed Deposit Application</h2>
-      </div>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>Fixed Deposit Application</h2></div>
+      <div class="field"><label>FD Amount ₹ *</label><input type="number" id="fd-amt" class="amt-big" placeholder="0.00"></div>
       <div class="row2">
-        <div class="field">
-          <label>Deposit Amount ₹ *</label>
-          <input type="number" id="fd-amt" class="amt-big" placeholder="0">
-        </div>
-        <div class="field">
-          <label>Tenure *</label>
-          <select id="fd-tenure">
-            <option value="3">3 Months</option>
-            <option value="6">6 Months</option>
-            <option value="12" selected>12 Months</option>
-            <option value="18">18 Months</option>
-            <option value="24">24 Months</option>
-            <option value="36">36 Months</option>
-            <option value="60">60 Months</option>
-          </select>
+        <div class="field"><label>Tenure (Months) *</label><input type="number" id="fd-tenure" placeholder="e.g. 12"></div>
+        <div class="field"><label>Interest Payout</label>
+          <select id="fd-interest"><option>Quarterly</option><option>Monthly</option><option>On Maturity</option><option>Annually</option></select>
         </div>
       </div>
       <div class="row2">
-        <div class="field">
-          <label>Interest Payout</label>
-          <select id="fd-interest">
-            <option value="maturity">At Maturity</option>
-            <option value="monthly">Monthly</option>
-            <option value="quarterly">Quarterly</option>
-          </select>
+        <div class="field"><label>Auto Renewal</label>
+          <select id="fd-auto"><option value="yes">Yes</option><option value="no">No</option></select>
         </div>
-        <div class="field">
-          <label>Auto-Renewal</label>
-          <select id="fd-auto">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-        </div>
-      </div>
-      <div class="field">
-        <label>Nominee Name *</label>
-        <input type="text" id="fd-nominee" placeholder="Nominee Full Name">
+        <div class="field"><label>Nominee Name *</label><input type="text" id="fd-nominee" placeholder="Nominee Full Name"></div>
       </div>
       <div class="row2">
-        <div class="field">
-          <label>Nominee Relation</label>
-          <select id="fd-relation">
-            <option>Spouse</option>
-            <option>Son</option>
-            <option>Daughter</option>
-            <option>Father</option>
-            <option>Mother</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Joint Holder (optional)</label>
-          <input type="text" id="fd-joint" placeholder="Name (if joint)">
-        </div>
+        <div class="field"><label>Relation</label><input type="text" id="fd-relation" placeholder="Relation to Nominee"></div>
+        <div class="field"><label>Joint Holder (optional)</label><input type="text" id="fd-joint" placeholder="Name"></div>
       </div>
-      <button class="btn btn-primary" onclick="generateQR('FD')">🖨️ Generate FD Slip</button>
+      <button class="btn btn-primary" onclick="generateQR('FD')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== RD ===== -->
+  <!-- RD -->
   <div id="screen-rd" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>Recurring Deposit</h2>
-      </div>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>Recurring Deposit</h2></div>
+      <div class="field"><label>Monthly Installment ₹ *</label><input type="number" id="rd-amt" class="amt-big" placeholder="0.00"></div>
       <div class="row2">
-        <div class="field">
-          <label>Monthly Installment ₹ *</label>
-          <input type="number" id="rd-amt" class="amt-big" placeholder="0">
-        </div>
-        <div class="field">
-          <label>Tenure (Months) *</label>
-          <select id="rd-tenure">
-            <option value="12">12 Months</option>
-            <option value="24">24 Months</option>
-            <option value="36">36 Months</option>
-            <option value="60">60 Months</option>
-            <option value="120">120 Months</option>
-          </select>
-        </div>
+        <div class="field"><label>Tenure (Months) *</label><input type="number" id="rd-tenure" placeholder="e.g. 24"></div>
+        <div class="field"><label>Month *</label><input type="month" id="rd-month"></div>
       </div>
-      <div class="field">
-        <label>Nominee Name</label>
-        <input type="text" id="rd-nominee" placeholder="Nominee Full Name">
-      </div>
-      <div class="field">
-        <label>Installment Month</label>
-        <input type="month" id="rd-month">
-      </div>
-      <button class="btn btn-primary" onclick="generateQR('RD')">🖨️ Generate RD Slip</button>
+      <div class="field"><label>Nominee Name</label><input type="text" id="rd-nominee" placeholder="Nominee Full Name"></div>
+      <button class="btn btn-primary" onclick="generateQR('RD')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== LOAN ===== -->
+  <!-- LOAN -->
   <div id="screen-loan" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>Loan Application</h2>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>Loan Application</h2></div>
+      <div class="field"><label>Loan Type *</label>
+        <select id="loan-type"><option>Personal Loan</option><option>Gold Loan</option><option>Home Loan</option><option>Vehicle Loan</option><option>Agriculture Loan</option><option>Education Loan</option><option>Business Loan</option></select>
       </div>
-      <div class="field">
-        <label>Loan Type *</label>
-        <select id="loan-type">
-          <option>Personal Loan</option>
-          <option>Gold Loan</option>
-          <option>Housing Loan</option>
-          <option>Agricultural Loan</option>
-          <option>Vehicle Loan</option>
-          <option>Education Loan</option>
-          <option>Business / MSME Loan</option>
-          <option>Loan Against FD</option>
-          <option>Mortgage Loan</option>
-        </select>
-      </div>
+      <div class="field"><label>Loan Amount ₹ *</label><input type="number" id="loan-amt" class="amt-big" placeholder="0.00"></div>
       <div class="row2">
-        <div class="field">
-          <label>Loan Amount ₹ *</label>
-          <input type="number" id="loan-amt" class="amt-big" placeholder="0">
-        </div>
-        <div class="field">
-          <label>Tenure (Months) *</label>
-          <input type="number" id="loan-tenure" placeholder="e.g. 60">
-        </div>
+        <div class="field"><label>Tenure (Months) *</label><input type="number" id="loan-tenure" placeholder="e.g. 60"></div>
+        <div class="field"><label>Annual Income ₹</label><input type="number" id="loan-income" placeholder="Annual Income"></div>
       </div>
-      <div class="field">
-        <label>Purpose of Loan</label>
-        <input type="text" id="loan-purpose" placeholder="Describe purpose">
-      </div>
-      <div class="field">
-        <label>Guarantor Name (if required)</label>
-        <input type="text" id="loan-guarantor" placeholder="Guarantor Full Name">
-      </div>
-      <div class="field">
-        <label>Annual Income ₹</label>
-        <input type="number" id="loan-income" placeholder="Annual Income">
-      </div>
-      <button class="btn btn-primary" onclick="generateQR('Loan')">🖨️ Generate Application Slip</button>
+      <div class="field"><label>Purpose of Loan</label><input type="text" id="loan-purpose" placeholder="Describe purpose"></div>
+      <button class="btn btn-primary" onclick="generateQR('Loan')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== CHEQUE ===== -->
+  <!-- CHEQUE -->
   <div id="screen-cheque" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>Cheque Services</h2>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>Cheque Services</h2></div>
+      <div class="field"><label>Service Type *</label>
+        <select id="chq-service"><option value="book">New Cheque Book Request</option><option value="stop">Stop Cheque Payment</option><option value="status">Cheque Status Enquiry</option><option value="ecs">ECS / NACH Mandate</option></select>
       </div>
-      <div class="field">
-        <label>Service Type *</label>
-        <select id="chq-service">
-          <option value="book">New Cheque Book Request</option>
-          <option value="stop">Stop Cheque Payment</option>
-          <option value="status">Cheque Status Enquiry</option>
-          <option value="ecs">ECS / NACH Mandate</option>
-        </select>
+      <div class="field"><label>Cheque Number(s)</label><input type="text" id="chq-nos" placeholder="e.g. 000101 to 000125"></div>
+      <div class="field"><label>No. of Leaves</label>
+        <select id="chq-leaves"><option>10 Leaves</option><option>20 Leaves</option><option>25 Leaves</option><option>50 Leaves</option></select>
       </div>
-      <div class="field">
-        <label>Cheque Number(s)</label>
-        <input type="text" id="chq-nos" placeholder="e.g. 000101 to 000125 or single no.">
-      </div>
-      <div class="field">
-        <label>Cheque Book - No. of Leaves</label>
-        <select id="chq-leaves">
-          <option>10 Leaves</option>
-          <option>20 Leaves</option>
-          <option>25 Leaves</option>
-          <option>50 Leaves</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Remarks / Reason</label>
-        <input type="text" id="chq-remarks" placeholder="Reason (for stop payment)">
-      </div>
-      <button class="btn btn-primary" onclick="generateQR('Cheque')">🖨️ Generate Request Slip</button>
+      <button class="btn btn-primary" onclick="generateQR('Cheque')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== KYC ===== -->
+  <!-- KYC -->
   <div id="screen-kyc" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>KYC / Document Update</h2>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>KYC / Document Update</h2></div>
+      <div class="warn-box">⚠️ Do not enter Aadhaar number or any sensitive document numbers in full.</div>
+      <div class="field"><label>Update Type *</label>
+        <select id="kyc-type"><option>PAN Card Linking</option><option>Aadhaar Seeding</option><option>Mobile Number Update</option><option>Address Change</option><option>Signature Update</option><option>Photo Update</option><option>Email ID Update</option></select>
       </div>
-      <div class="field">
-        <label>Update Type *</label>
-        <select id="kyc-type">
-          <option>PAN Card Linking</option>
-          <option>Aadhaar Seeding</option>
-          <option>Mobile Number Update</option>
-          <option>Address Change</option>
-          <option>Signature Update</option>
-          <option>Photo Update</option>
-          <option>Email ID Update</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Document ID / Number</label>
-        <input type="text" id="kyc-docno" placeholder="PAN / Aadhaar / etc." style="text-transform:uppercase">
-      </div>
-      <div class="field">
-        <label>New Value (if applicable)</label>
-        <input type="text" id="kyc-newval" placeholder="New address / mobile / etc.">
-      </div>
-      <button class="btn btn-primary" onclick="generateQR('KYC')">🖨️ Generate Update Slip</button>
+      <div class="field"><label>Reference ID (last 4 digits only)</label><input type="text" id="kyc-docno" maxlength="4" placeholder="Last 4 digits only"></div>
+      <div class="field"><label>New Value (if applicable)</label><input type="text" id="kyc-newval" placeholder="New address / mobile / etc."></div>
+      <button class="btn btn-primary" onclick="generateQR('KYC')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== ACCOUNT SERVICES ===== -->
+  <!-- ACCOUNT SERVICES -->
   <div id="screen-closure" class="screen">
     <div class="card">
-      <div class="sec-header">
-        <button class="back-btn" onclick="showScreen('screen-menu')">←</button>
-        <h2>Account Services</h2>
+      <div class="sec-header"><button class="back-btn" onclick="showScreen('screen-menu')">←</button><h2>Account Services</h2></div>
+      <div class="field"><label>Service Type *</label>
+        <select id="acc-service"><option value="closure">Account Closure</option><option value="nominee">Nominee Update</option><option value="joint">Add Joint Holder</option><option value="transfer">Account Transfer (Branch)</option><option value="dormant">Reactivate Dormant Account</option><option value="statement">Statement Request</option></select>
       </div>
-      <div class="field">
-        <label>Service Type *</label>
-        <select id="acc-service">
-          <option value="closure">Account Closure</option>
-          <option value="nominee">Nominee Update</option>
-          <option value="joint">Add Joint Holder</option>
-          <option value="transfer">Account Transfer (Branch)</option>
-          <option value="dormant">Reactivate Dormant Account</option>
-          <option value="statement">Statement Request</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>New Nominee / Person Name</label>
-        <input type="text" id="acc-nominee" placeholder="Full Name">
-      </div>
-      <div class="field">
-        <label>Reason / Remarks</label>
-        <input type="text" id="acc-remarks" placeholder="Reason for request">
-      </div>
-      <button class="btn btn-primary" onclick="generateQR('AccountService')">🖨️ Generate Request Slip</button>
+      <div class="field"><label>New Nominee / Person Name</label><input type="text" id="acc-nominee" placeholder="Full Name"></div>
+      <div class="field"><label>Reason / Remarks</label><input type="text" id="acc-remarks" placeholder="Reason for request"></div>
+      <button class="btn btn-primary" onclick="generateQR('AccountService')">🔐 Generate Secure QR Slip</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">← Back</button>
     </div>
   </div>
 
-  <!-- ===== QR RESULT ===== -->
+  <!-- QR SCREEN -->
   <div id="screen-qr" class="screen">
-    <div class="card qr-wrapper" id="qr-card">
-      <div id="qr-type-badge" class="qr-type-badge">SLIP GENERATED</div>
-      <div class="qr-box" style="text-align:center; padding:10px 0;">
+    <div class="card qr-wrapper">
+      <div id="qr-type-badge" class="qr-type-badge">SECURE SLIP</div>
+      <div class="qr-box" style="text-align:center;padding:10px 0;margin:10px 0;">
         <div id="qr-canvas" style="display:inline-block;"></div>
       </div>
-      <div class="qr-hint">👆 <strong>Slip Details</strong></div>
-      <div id="qr-summary" style="margin-top:14px; font-size:13px; color:var(--navy); text-align:left;"></div>
-      <button class="btn btn-gold" onclick="printSlips()" style="margin-top:12px; font-size:16px;">🖨️ Print Slip Now</button>
+      <div style="text-align:center;font-size:12px;color:var(--blue);font-weight:600;margin:6px 0;">
+        🔐 AES-256 Encrypted QR — Show at bank counter to print
+      </div>
+      <div class="qr-expiry" id="qr-expiry" style="text-align:center;"></div>
+      <div class="warn-box" style="margin-top:10px;">
+        ⚠️ <strong>Keep this QR private.</strong> Do not share screenshots. Valid for 48 hours only.
+      </div>
+      <div id="qr-summary" style="margin-top:10px;font-size:13px;color:var(--navy);text-align:left;"></div>
+      <button class="btn btn-gold" onclick="printSlips()" style="margin-top:12px;">🖨️ Print Slip Now</button>
       <button class="btn btn-outline" onclick="showScreen('screen-menu')">🏠 Main Menu</button>
     </div>
-    <div class="card" style="background:#f0faf5; border-color:#c0e6d2;">
-      <div style="font-size:13px; color:#1a5c3a; font-weight:600; margin-bottom:6px;">📋 How to use this slip</div>
-      <div style="font-size:12px; color:#2d7a50; line-height:1.8;">
-        1. Press "Print Slip Now" to print Bank + Customer copy<br>
-        2. Sign both slips and submit Bank copy at counter<br>
-        3. Retain Customer copy as receipt
+    <div class="card" style="background:#f0faf5;border-color:#c0e6d2;">
+      <div style="font-size:13px;color:#1a5c3a;font-weight:600;margin-bottom:8px;">📋 How to use this slip</div>
+      <div style="font-size:12px;color:#2d7a50;line-height:1.9;">
+        1. Show QR code at bank kiosk scanner<br>
+        2. Receipt prints automatically on A4 paper<br>
+        3. Or press "Print Slip Now" to print directly<br>
+        4. Submit Bank copy at counter, keep Customer copy
       </div>
     </div>
   </div>
 
-</div><!-- end main-ui -->
+</div><!-- end app -->
 
-<!-- ===== PRINT AREA ===== -->
 <div id="print-area"></div>
-
-<!-- ===== VOICE ASSISTANT ===== -->
-<div id="voice-assistant" class="voice-btn" onclick="toggleVoice()">
-  🎤
-</div>
+<div id="voice-assistant" class="voice-btn" onclick="toggleVoice()">🎤</div>
 <div id="voice-status" class="voice-status"></div>
 
 <script>
-// ========== DATA ==========
-const denoms = [2000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
+// ================================================================
+// CONFIGURATION
+// ================================================================
+const RECEIPT_URL = 'https://vpbsbd-sys.github.io/BANKPORTALQRSCAN/tablet_scanner.html';
+const QR_VALIDITY_HOURS = 48;
+
+// AES-256 Encryption Key — CHANGE THIS to your own secret key
+// Same key must be in tablet_scanner.html
+// Use at least 32 random characters
+const AES_KEY = 'KolhapurBank@2024#SecurePortal32';
+
+// ================================================================
+// AES-256-GCM ENCRYPTION (Web Crypto API — built into browser)
+// ================================================================
+async function getKey() {
+  const enc = new TextEncoder();
+  const keyData = enc.encode(AES_KEY.substring(0,32).padEnd(32,'0'));
+  return await crypto.subtle.importKey('raw', keyData, {name:'AES-GCM'}, false, ['encrypt','decrypt']);
+}
+
+async function encryptData(plaintext) {
+  const key = await getKey();
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const enc = new TextEncoder();
+  const encrypted = await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, enc.encode(plaintext));
+  // Combine IV + encrypted data → base64
+  const combined = new Uint8Array(iv.length + encrypted.byteLength);
+  combined.set(iv, 0);
+  combined.set(new Uint8Array(encrypted), iv.length);
+  // URL-safe base64 — replaces +/= which break in URLs
+  const b64 = btoa(String.fromCharCode(...combined));
+  return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+
+// ================================================================
+// CHECKSUM (simple tamper detection)
+// ================================================================
+function checksum(str) {
+  let h = 0;
+  for(let i=0;i<str.length;i++) h = Math.imul(31,h) + str.charCodeAt(i) | 0;
+  return Math.abs(h).toString(16).substring(0,6).toUpperCase();
+}
+
+// ================================================================
+// LOCAL STORAGE — save registration on device
+// ================================================================
+const STORAGE_KEY = 'kbp_user_v1';
+const TERMS_KEY   = 'kbp_terms_v1';
+
+function saveUserData(data) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function loadUserData() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) { return null; }
+}
+
+function hasAcceptedTerms() {
+  return localStorage.getItem(TERMS_KEY) === 'yes';
+}
+
+function acceptTerms() {
+  localStorage.setItem(TERMS_KEY, 'yes');
+  document.getElementById('terms-modal').style.display = 'none';
+}
+
+function declineTerms() {
+  document.getElementById('terms-modal').style.display = 'none';
+  alert('You must accept the Terms of Use to continue.');
+}
+
+function showTerms() {
+  document.getElementById('terms-modal').style.display = 'flex';
+}
+
+function showUserMenu() {
+  const menu = confirm('Choose:\nOK = Clear My Data (logout)\nCancel = Close');
+  if(menu) document.getElementById('clear-modal').style.display = 'flex';
+}
+
+function clearMyData() {
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(TERMS_KEY);
+  document.getElementById('clear-modal').style.display = 'none';
+  userData = {};
+  logout();
+  alert('Your data has been deleted from this device.');
+}
+
+// ================================================================
+// PORTAL LOGIC
+// ================================================================
+const denoms = [2000,500,200,100,50,20,10,5,2,1];
 let userData = {};
 let currentSlipData = {};
 let depTab = 'cash';
 
-// ========== INIT ==========
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('topdate').textContent = new Date().toLocaleDateString('en-IN', {weekday:'short', day:'2-digit', month:'short', year:'numeric'});
+  // Set date
+  document.getElementById('topdate').textContent = new Date().toLocaleDateString('en-IN',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
+
+  // Show terms if not accepted
+  if(!hasAcceptedTerms()) showTerms();
+
+  // Load saved user data
+  const saved = loadUserData();
+  if(saved && saved.name) {
+    userData = saved;
+    populateRegForm(saved);
+    updateWelcome();
+    document.getElementById('user-badge').style.display = 'flex';
+    showScreen('screen-menu');
+  }
+
+  // Withdraw bearer toggle
   document.getElementById('wd-mode').addEventListener('change', e => {
     document.getElementById('wd-bearer-field').style.display = e.target.value === 'bearer' ? 'block' : 'none';
   });
-  // Set today's date defaults
+
+  // Set default dates
   const today = new Date().toISOString().split('T')[0];
-  const todayM = today.slice(0,7);
   if(document.getElementById('chq-date')) document.getElementById('chq-date').value = today;
-  if(document.getElementById('rd-month')) document.getElementById('rd-month').value = todayM;
+  if(document.getElementById('rd-month')) document.getElementById('rd-month').value = today.slice(0,7);
 });
 
-// ========== SCREEN ==========
+function populateRegForm(d) {
+  if(d.bank)    document.getElementById('reg-bank').value = d.bank;
+  if(d.acctype) document.getElementById('reg-acctype').value = d.acctype;
+  if(d.acc)     document.getElementById('reg-acc').value = d.acc;
+  if(d.name)    document.getElementById('reg-name').value = d.name;
+  if(d.mobile)  document.getElementById('reg-mobile').value = d.mobile;
+  if(d.dob)     document.getElementById('reg-dob').value = d.dob;
+  if(d.addr)    document.getElementById('reg-addr').value = d.addr;
+}
+
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
 
-// ========== REGISTRATION ==========
 function handleReg() {
-  const bank = document.getElementById('reg-bank').value;
-  const name = document.getElementById('reg-name').value.trim();
-  const acc = document.getElementById('reg-acc').value.trim();
-  const mobile = document.getElementById('reg-mobile').value.trim();
+  const bank    = document.getElementById('reg-bank').value;
+  const name    = document.getElementById('reg-name').value.trim();
+  const acc     = document.getElementById('reg-acc').value.trim();
+  const mobile  = document.getElementById('reg-mobile').value.trim();
   const acctype = document.getElementById('reg-acctype').value;
-  const dob = document.getElementById('reg-dob').value;
-  const addr = document.getElementById('reg-addr').value.trim();
-  if(!bank) return alert('Please select your bank.');
-  if(!name) return alert('Please enter your full name.');
-  if(!acc) return alert('Please enter your account number.');
+  const dob     = document.getElementById('reg-dob').value;
+  const addr    = document.getElementById('reg-addr').value.trim();
+
+  if(!bank)              return alert('Please select your bank.');
+  if(!name)              return alert('Please enter your full name.');
+  if(!acc)               return alert('Please enter your account number.');
   if(mobile.length !== 10) return alert('Please enter a valid 10-digit mobile number.');
-  userData = { bank, name, acc, mobile, acctype, dob, addr };
-  document.getElementById('wc-name').textContent = name;
-  document.getElementById('wc-acc').textContent = acctype + ' A/C: ' + acc;
-  const bankShort = bank.split(',')[0].split('Ltd')[0].trim();
-  document.getElementById('wc-bank').textContent = bankShort.substring(0,22) + (bankShort.length>22?'…':'');
+
+  if(!hasAcceptedTerms()) { showTerms(); return; }
+
+  userData = {bank,name,acc,mobile,acctype,dob,addr};
+
+  // Save to device storage
+  saveUserData(userData);
+
+  updateWelcome();
   document.getElementById('user-badge').style.display = 'flex';
   showScreen('screen-menu');
 }
 
+function updateWelcome() {
+  document.getElementById('wc-name').textContent = userData.name;
+  document.getElementById('wc-acc').textContent = userData.acctype + ' A/C: ****' + userData.acc.slice(-4);
+  const bs = userData.bank.split(',')[0].split('Ltd')[0].trim();
+  document.getElementById('wc-bank').textContent = bs.substring(0,20) + (bs.length>20?'…':'');
+}
+
 function logout() {
-  userData = {};
   document.getElementById('user-badge').style.display = 'none';
+  populateRegForm(userData);
   showScreen('screen-reg');
 }
 
-// ========== DEPOSIT ==========
-function openDeposit() {
-  buildDenomTable();
-  showScreen('screen-deposit');
-}
+function openDeposit() { buildDenomTable(); showScreen('screen-deposit'); }
 
 function buildDenomTable() {
   const tbody = document.getElementById('denom-tbody');
   tbody.innerHTML = '';
   denoms.forEach(v => {
-    tbody.innerHTML += `<tr>
-      <td><strong>₹ ${v}</strong></td>
-      <td><input type="number" class="qty-input d-q" data-v="${v}" oninput="updateDepTotal()" placeholder="0" min="0"></td>
-      <td class="r-t-${v}">₹ 0</td>
-    </tr>`;
+    tbody.innerHTML += `<tr><td><strong>₹ ${v}</strong></td><td><input type="number" class="d-q" data-v="${v}" oninput="updateDepTotal()" placeholder="0" min="0"></td><td class="r-t-${v}">₹ 0</td></tr>`;
   });
 }
 
 function switchTab(tab) {
   depTab = tab;
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  const showCash = tab === 'cash' || tab === 'both';
-  const showCheque = tab === 'cheque' || tab === 'both';
-  document.getElementById('cash-section').style.display = showCash ? 'block' : 'none';
-  document.getElementById('cheque-section').style.display = showCheque ? 'block' : 'none';
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('cash-section').style.display   = (tab==='cash'||tab==='both') ? 'block' : 'none';
+  document.getElementById('cheque-section').style.display = (tab==='cheque'||tab==='both') ? 'block' : 'none';
   updateDepTotal();
 }
 
 function updateDepTotal() {
   let t = 0;
   document.querySelectorAll('.d-q').forEach(i => {
-    const q = parseInt(i.value) || 0;
-    const v = parseInt(i.dataset.v);
-    const subtotal = q * v;
-    t += subtotal;
-    const cell = document.querySelector('.r-t-' + v);
-    if(cell) cell.textContent = '₹ ' + subtotal.toLocaleString('en-IN');
+    const q=parseInt(i.value)||0, v=parseInt(i.dataset.v), s=q*v;
+    t += s;
+    const c = document.querySelector('.r-t-'+v);
+    if(c) c.textContent = '₹ ' + s.toLocaleString('en-IN');
   });
-  t += parseFloat(document.getElementById('chq-amt')?.value) || 0;
+  t += parseFloat(document.getElementById('chq-amt')?.value)||0;
   document.getElementById('dep-total').textContent = t.toLocaleString('en-IN');
   return t;
 }
 
-// ========== WORDS ==========
-function amountToWords(num) {
-  if (!num || num === 0) return 'Zero Rupees Only';
-  const a = ['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
-  const b = ['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
-  const makeGroup = (n) => {
-    let s = '';
-    if (n >= 100) { s += a[Math.floor(n/100)] + ' Hundred '; n %= 100; }
-    if (n >= 20) { s += b[Math.floor(n/10)] + ' ' + a[n%10] + ' '; } else { s += a[n] + ' '; }
-    return s.trim();
-  };
-  num = parseInt(num);
-  let word = '';
-  if (num >= 10000000) { word += makeGroup(Math.floor(num/10000000)) + ' Crore '; num %= 10000000; }
-  if (num >= 100000) { word += makeGroup(Math.floor(num/100000)) + ' Lakh '; num %= 100000; }
-  if (num >= 1000) { word += makeGroup(Math.floor(num/1000)) + ' Thousand '; num %= 1000; }
-  if (num > 0) word += makeGroup(num);
-  return word.trim() + ' Rupees Only';
-}
+// ================================================================
+// QR GENERATION — AES ENCRYPTED
+// ================================================================
+async function generateQR(type) {
+  let amt=0, details={}, valid=true, errMsg='';
 
-// ========== QR GENERATION ==========
-function generateQR(type) {
-  let amt = 0, details = {}, valid = true, errMsg = '';
-
-  if(type === 'Withdraw') {
-    amt = parseFloat(document.getElementById('withdraw-amt').value) || 0;
-    if(!amt) { valid=false; errMsg='Enter withdrawal amount.'; }
-    details = { mode: document.getElementById('wd-mode').value, purpose: document.getElementById('wd-purpose').value };
-  } else if(type === 'Deposit') {
-    amt = updateDepTotal();
-    if(!amt) { valid=false; errMsg='Enter cash or cheque amount.'; }
-    details = { tab: depTab, chqBank: document.getElementById('chq-bank')?.value||'', chqNo: document.getElementById('chq-no')?.value||'' };
-  } else if(type === 'NEFT') {
-    amt = parseFloat(document.getElementById('neft-amt').value) || 0;
-    const benName = document.getElementById('ben-name').value;
-    const benAcc = document.getElementById('ben-acc').value;
-    const benIFSC = document.getElementById('ben-ifsc').value;
-    if(!amt || !benName || !benAcc || !benIFSC) { valid=false; errMsg='Fill all required transfer fields.'; }
-    details = { type: document.getElementById('neft-type').value, benName, benAcc, benIFSC, benBank: document.getElementById('ben-bank').value, remarks: document.getElementById('neft-remarks').value };
-  } else if(type === 'DD') {
-    amt = parseFloat(document.getElementById('dd-amt').value) || 0;
-    const favor = document.getElementById('dd-favor').value;
-    const payable = document.getElementById('dd-payable').value;
-    if(!amt || !favor || !payable) { valid=false; errMsg='Fill all DD fields.'; }
-    details = { favor, payable, purpose: document.getElementById('dd-purpose').value, debit: document.getElementById('dd-debit').value };
-  } else if(type === 'FD') {
-    amt = parseFloat(document.getElementById('fd-amt').value) || 0;
-    const nominee = document.getElementById('fd-nominee').value;
-    if(!amt || !nominee) { valid=false; errMsg='Enter FD amount and nominee.'; }
-    details = { tenure: document.getElementById('fd-tenure').value, interest: document.getElementById('fd-interest').value, auto: document.getElementById('fd-auto').value, nominee, relation: document.getElementById('fd-relation').value, joint: document.getElementById('fd-joint').value };
-  } else if(type === 'RD') {
-    amt = parseFloat(document.getElementById('rd-amt').value) || 0;
-    if(!amt) { valid=false; errMsg='Enter monthly installment amount.'; }
-    details = { tenure: document.getElementById('rd-tenure').value, nominee: document.getElementById('rd-nominee').value, month: document.getElementById('rd-month').value };
-  } else if(type === 'Loan') {
-    amt = parseFloat(document.getElementById('loan-amt').value) || 0;
-    if(!amt) { valid=false; errMsg='Enter loan amount.'; }
-    details = { loanType: document.getElementById('loan-type').value, tenure: document.getElementById('loan-tenure').value, purpose: document.getElementById('loan-purpose').value };
-  } else if(type === 'Cheque') {
-    details = { service: document.getElementById('chq-service').value, nos: document.getElementById('chq-nos').value, leaves: document.getElementById('chq-leaves').value };
-    amt = 0;
-  } else if(type === 'KYC') {
-    details = { kycType: document.getElementById('kyc-type').value, docno: document.getElementById('kyc-docno').value, newval: document.getElementById('kyc-newval').value };
-    amt = 0;
-  } else if(type === 'AccountService') {
-    details = { service: document.getElementById('acc-service').value, nominee: document.getElementById('acc-nominee').value, remarks: document.getElementById('acc-remarks').value };
-    amt = 0;
+  if(type==='Withdraw'){
+    amt=parseFloat(document.getElementById('withdraw-amt').value)||0;
+    if(!amt){valid=false;errMsg='Enter withdrawal amount.';}
+    details={mode:document.getElementById('wd-mode').value,purpose:document.getElementById('wd-purpose').value};
+  } else if(type==='Deposit'){
+    amt=updateDepTotal();
+    if(!amt){valid=false;errMsg='Enter cash or cheque amount.';}
+    details={tab:depTab,chqBank:document.getElementById('chq-bank')?.value||'',chqNo:document.getElementById('chq-no')?.value||''};
+  } else if(type==='NEFT'){
+    amt=parseFloat(document.getElementById('neft-amt').value)||0;
+    const bn=document.getElementById('ben-name').value,ba=document.getElementById('ben-acc').value,bi=document.getElementById('ben-ifsc').value;
+    if(!amt||!bn||!ba||!bi){valid=false;errMsg='Fill all required transfer fields.';}
+    details={neftType:document.getElementById('neft-type').value,benName:bn,benAcc:ba,benIFSC:bi.toUpperCase(),benBank:document.getElementById('ben-bank').value,remarks:document.getElementById('neft-remarks').value};
+  } else if(type==='DD'){
+    amt=parseFloat(document.getElementById('dd-amt').value)||0;
+    const f=document.getElementById('dd-favor').value,p=document.getElementById('dd-payable').value;
+    if(!amt||!f||!p){valid=false;errMsg='Fill all DD fields.';}
+    details={favor:f,payable:p,purpose:document.getElementById('dd-purpose').value};
+  } else if(type==='FD'){
+    amt=parseFloat(document.getElementById('fd-amt').value)||0;
+    const nom=document.getElementById('fd-nominee').value;
+    if(!amt||!nom){valid=false;errMsg='Enter FD amount and nominee.';}
+    details={tenure:document.getElementById('fd-tenure').value,interest:document.getElementById('fd-interest').value,auto:document.getElementById('fd-auto').value,nominee:nom,relation:document.getElementById('fd-relation').value,joint:document.getElementById('fd-joint').value};
+  } else if(type==='RD'){
+    amt=parseFloat(document.getElementById('rd-amt').value)||0;
+    if(!amt){valid=false;errMsg='Enter monthly installment amount.';}
+    details={tenure:document.getElementById('rd-tenure').value,nominee:document.getElementById('rd-nominee').value,month:document.getElementById('rd-month').value};
+  } else if(type==='Loan'){
+    amt=parseFloat(document.getElementById('loan-amt').value)||0;
+    if(!amt){valid=false;errMsg='Enter loan amount.';}
+    details={loanType:document.getElementById('loan-type').value,tenure:document.getElementById('loan-tenure').value,purpose:document.getElementById('loan-purpose').value};
+  } else if(type==='Cheque'){
+    details={service:document.getElementById('chq-service').value,nos:document.getElementById('chq-nos').value,leaves:document.getElementById('chq-leaves').value};
+  } else if(type==='KYC'){
+    details={kycType:document.getElementById('kyc-type').value,docno:document.getElementById('kyc-docno').value,newval:document.getElementById('kyc-newval').value};
+  } else if(type==='AccountService'){
+    details={service:document.getElementById('acc-service').value,nominee:document.getElementById('acc-nominee').value,remarks:document.getElementById('acc-remarks').value};
   }
 
   if(!valid) return alert(errMsg);
 
-  currentSlipData = { type, amt, details, userData: {...userData}, date: new Date().toLocaleDateString('en-IN'), time: new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'}), refNo: 'REF' + Date.now().toString().slice(-8) };
+  const date = new Date().toLocaleDateString('en-IN');
+  const time = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  const refNo = 'REF' + Date.now().toString().slice(-8);
+  const expiry = Date.now() + (QR_VALIDITY_HOURS * 60 * 60 * 1000);
 
-  // QR contains a full URL so ANY scanner app opens it directly in browser
-  // Change RECEIPT_URL to wherever your tablet_scanner.html is hosted
-  const RECEIPT_URL = 'https://vpbsbd-sys.github.io/tablet_scanner.html';
+  currentSlipData = {type,amt,details,userData:{...userData},date,time,refNo,expiry};
 
-  const _d = currentSlipData;
+  // Build compact pipe string (keep QR small)
   const dvs = Object.values(details)
     .filter(v=>v&&String(v).trim())
-    .map(v=>String(v).substring(0,12).replace(/[|~]/g,''))
+    .map(v=>String(v).substring(0,15).replace(/[|~]/g,''))
     .join('~');
+
   const pipeStr = [
-    _d.refNo,
-    (userData.bank||'').substring(0,10).replace(/[|~]/g,''),
-    (userData.acc||'').substring(0,12),
-    (userData.name||'').substring(0,12).replace(/[|~]/g,''),
-    (userData.mobile||'').substring(0,10),
-    (userData.acctype||'').substring(0,3),
+    refNo,
+    (userData.bank||'').substring(0,12).replace(/[|~]/g,''),
+    userData.acc||'',
+    (userData.name||'').substring(0,14).replace(/[|~]/g,''),
+    userData.mobile||'',
+    userData.acctype||'',
     type,
     amt||0,
-    _d.date,
-    _d.time,
+    date,
+    time,
+    expiry,
+    checksum(refNo + amt + type),  // tamper detection
     dvs
   ].join('|');
-  const qrData = RECEIPT_URL + '#' + btoa(pipeStr);
 
-
+  // Show screen first
   showScreen('screen-qr');
-  document.getElementById('qr-type-badge').textContent = type.toUpperCase() + ' REQUEST';
-  document.getElementById('qr-canvas').innerHTML = '';
+  document.getElementById('qr-type-badge').textContent = type.toUpperCase() + ' REQUEST 🔐';
+  document.getElementById('qr-canvas').innerHTML = '<div style="padding:20px;color:var(--gray);font-size:12px;">🔐 Encrypting...</div>';
 
+  // Encrypt
   try {
+    const encrypted = await encryptData(pipeStr);
+    const qrURL = RECEIPT_URL + '#' + encrypted;
+
+    document.getElementById('qr-canvas').innerHTML = '';
     new QRCode(document.getElementById('qr-canvas'), {
-      text: qrData,
-      width: 240,
-      height: 240,
+      text: qrURL,
+      width: 220,
+      height: 220,
       colorDark: '#000000',
       colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.L
     });
+
+    // Show expiry
+    const expiryDate = new Date(expiry);
+    document.getElementById('qr-expiry').textContent =
+      '⏰ Valid until: ' + expiryDate.toLocaleDateString('en-IN') + ' ' + expiryDate.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+
   } catch(e) {
-    document.getElementById('qr-canvas').innerHTML =
-      '<div style="color:red;font-size:12px;padding:10px;">QR Error: ' + e.message + '</div>';
+    document.getElementById('qr-canvas').innerHTML = '<div style="color:red;padding:10px;">Encryption error: ' + e.message + '</div>';
   }
 
-  let summaryHTML = `<div style="border:1px solid var(--border); border-radius:10px; overflow:hidden;">`;
+  // Summary (masked account number)
+  const maskedAcc = '****' + (userData.acc||'').slice(-4);
+  let sh = '<div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;">';
   const rows = [
-    ['Account', userData.acc + ' (' + userData.acctype + ')'],
+    ['Account', maskedAcc + ' (' + userData.acctype + ')'],
     ['Name', userData.name],
-    ['Bank', userData.bank],
-    ['Type', type],
+    ['Transaction', type],
+    ...(amt ? [['Amount', '₹ ' + parseFloat(amt).toLocaleString('en-IN')]] : []),
+    ['Ref No.', refNo],
+    ['Date & Time', date + ' ' + time]
   ];
-  if(amt) rows.push(['Amount', '₹ ' + parseFloat(amt).toLocaleString('en-IN')]);
-  rows.push(['Ref No.', currentSlipData.refNo]);
-  rows.push(['Date & Time', currentSlipData.date + ' ' + currentSlipData.time]);
-  if(details.benName) rows.push(['Beneficiary', details.benName]);
-  if(details.benIFSC) rows.push(['IFSC', details.benIFSC]);
-  if(details.favor) rows.push(['In Favour of', details.favor]);
-  if(details.payable) rows.push(['Payable at', details.payable]);
-  if(details.nominee) rows.push(['Nominee', details.nominee]);
-  if(details.tenure) rows.push(['Tenure', details.tenure + ' Months']);
   rows.forEach((r,i) => {
-    summaryHTML += `<div style="display:flex; padding:8px 12px; background:${i%2?'#f7fafd':'white'}; font-size:12px;"><span style="color:var(--gray); width:110px; flex-shrink:0;">${r[0]}</span><span style="color:var(--navy); font-weight:500;">${r[1]}</span></div>`;
+    sh += `<div style="display:flex;padding:8px 12px;background:${i%2?'#f7fafd':'white'};font-size:12px;"><span style="color:var(--gray);width:110px;flex-shrink:0;">${r[0]}</span><span style="color:var(--navy);font-weight:500;">${r[1]}</span></div>`;
   });
-  summaryHTML += '</div>';
-  document.getElementById('qr-summary').innerHTML = summaryHTML;
+  sh += '</div>';
+  document.getElementById('qr-summary').innerHTML = sh;
 }
 
-// ========== PRINT SLIPS ==========
+// ================================================================
+// PRINT SLIPS
+// ================================================================
+function amountToWords(num) {
+  num=parseInt(num)||0;if(!num)return 'Zero Rupees Only';
+  const a=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+  const b=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+  const grp=n=>{let s='';if(n>=100){s+=a[Math.floor(n/100)]+' Hundred ';n%=100;}if(n>=20){s+=b[Math.floor(n/10)]+' '+a[n%10]+' ';}else{s+=a[n]+' ';}return s.trim();};
+  let w='',n=num;
+  if(n>=10000000){w+=grp(Math.floor(n/10000000))+' Crore ';n%=10000000;}
+  if(n>=100000){w+=grp(Math.floor(n/100000))+' Lakh ';n%=100000;}
+  if(n>=1000){w+=grp(Math.floor(n/1000))+' Thousand ';n%=1000;}
+  if(n>0)w+=grp(n);
+  return w.trim()+' Rupees Only';
+}
+
 function printSlips() {
   const d = currentSlipData;
-  if(!d.type) return alert('No slip data. Please generate a QR first.');
-
-  const {type, amt, details, userData: u, date, time, refNo} = d;
+  if(!d.type) return alert('No slip data.');
+  const {type,amt,details,userData:u,date,time,refNo} = d;
   const words = amt ? amountToWords(parseInt(amt)) : '—';
-
-  // Build denomination rows for deposit
-  let denomRows = '';
-  if(type === 'Deposit' && (depTab === 'cash' || depTab === 'both')) {
-    document.querySelectorAll('.d-q').forEach(i => {
-      const q = parseInt(i.value) || 0;
-      if(q > 0) denomRows += `<tr><td>₹ ${i.dataset.v}</td><td>${q}</td><td>₹ ${q * parseInt(i.dataset.v)}</td></tr>`;
-    });
-  }
-
-  // Build details rows
-  let detailRows = '';
-  if(type === 'NEFT') {
-    detailRows = `<tr><th>Transfer Type</th><td>${details.type}</td></tr><tr><th>Beneficiary</th><td>${details.benName}</td></tr><tr><th>Bene. A/C No.</th><td>${details.benAcc}</td></tr><tr><th>IFSC Code</th><td>${details.benIFSC}</td></tr>`;
-    if(details.benBank) detailRows += `<tr><th>Bene. Bank</th><td>${details.benBank}</td></tr>`;
-    if(details.remarks) detailRows += `<tr><th>Remarks</th><td>${details.remarks}</td></tr>`;
-  } else if(type === 'DD') {
-    detailRows = `<tr><th>In Favour of</th><td>${details.favor}</td></tr><tr><th>Payable at</th><td>${details.payable}</td></tr>`;
-    if(details.purpose) detailRows += `<tr><th>Purpose</th><td>${details.purpose}</td></tr>`;
-  } else if(type === 'FD') {
-    detailRows = `<tr><th>Tenure</th><td>${details.tenure} Months</td></tr><tr><th>Int. Payout</th><td>${details.interest}</td></tr><tr><th>Auto Renewal</th><td>${details.auto === 'yes' ? 'Yes' : 'No'}</td></tr><tr><th>Nominee</th><td>${details.nominee} (${details.relation})</td></tr>`;
-    if(details.joint) detailRows += `<tr><th>Joint Holder</th><td>${details.joint}</td></tr>`;
-  } else if(type === 'RD') {
-    detailRows = `<tr><th>Monthly Inst.</th><td>₹ ${parseFloat(amt).toLocaleString('en-IN')}</td></tr><tr><th>Tenure</th><td>${details.tenure} Months</td></tr><tr><th>Month</th><td>${details.month}</td></tr>`;
-    if(details.nominee) detailRows += `<tr><th>Nominee</th><td>${details.nominee}</td></tr>`;
-  } else if(type === 'Loan') {
-    detailRows = `<tr><th>Loan Type</th><td>${details.loanType}</td></tr><tr><th>Tenure</th><td>${details.tenure} Months</td></tr><tr><th>Purpose</th><td>${details.purpose}</td></tr>`;
-  } else if(type === 'Cheque') {
-    detailRows = `<tr><th>Service</th><td>${details.service}</td></tr><tr><th>Cheque Nos.</th><td>${details.nos}</td></tr><tr><th>Leaves</th><td>${details.leaves}</td></tr>`;
-  } else if(type === 'KYC') {
-    detailRows = `<tr><th>KYC Type</th><td>${details.kycType}</td></tr><tr><th>Doc No.</th><td>${details.docno}</td></tr><tr><th>New Value</th><td>${details.newval}</td></tr>`;
-  } else if(type === 'AccountService') {
-    detailRows = `<tr><th>Service</th><td>${details.service}</td></tr><tr><th>Nominee</th><td>${details.nominee}</td></tr><tr><th>Remarks</th><td>${details.remarks}</td></tr>`;
-  } else if(type === 'Withdraw') {
-    detailRows = `<tr><th>Mode</th><td>${details.mode === 'self' ? 'Self' : 'Bearer'}</td></tr><tr><th>Purpose</th><td>${details.purpose}</td></tr>`;
-  }
-
-  const chequeRow = type === 'Deposit' && details.chqNo ? `<tr><th>Cheque No.</th><td>${details.chqNo}</td></tr><tr><th>Cheque Bank</th><td>${details.chqBank}</td></tr>` : '';
-
-  const makeCopy = (copyType, bgColor) => `
-    <div class="slip ${copyType === 'BANK' ? 'slip-bank-copy' : 'slip-cust-copy'}" style="background:${bgColor}">
-      <div class="slip-copy-tag">${copyType} COPY</div>
-      <div class="slip-header">
-        <div class="slip-bank-name">${u.bank}</div>
-        <div class="slip-type">${type.toUpperCase()} REQUISITION SLIP</div>
-      </div>
-      <div class="slip-grid">
-        <div class="slip-cell"><strong>Account No.</strong>${u.acc} (${u.acctype})</div>
-        <div class="slip-cell"><strong>Date</strong>${date}</div>
-        <div class="slip-cell"><strong>Account Holder</strong>${u.name}</div>
-        <div class="slip-cell"><strong>Mobile</strong>${u.mobile}</div>
-        ${u.addr ? `<div class="slip-cell" style="grid-column:span 2"><strong>Address</strong>${u.addr}</div>` : ''}
-      </div>
-      <table class="slip-table">
-        <thead><tr><th colspan="2">${type} Details</th></tr></thead>
-        <tbody>
-          ${detailRows}
-          ${chequeRow}
-          ${amt ? `<tr><th><strong>Amount ₹</strong></th><td><strong>₹ ${parseFloat(amt).toLocaleString('en-IN')}</strong></td></tr>` : ''}
-        </tbody>
-      </table>
-      ${denomRows ? `
-        <table class="slip-denom">
-          <thead><tr><th>Denomination</th><th>Qty</th><th>Amount</th></tr></thead>
-          <tbody>${denomRows}</tbody>
-        </table>
-      ` : ''}
-      ${amt ? `<div class="slip-words"><strong>Amount in Words</strong>${words}</div>` : ''}
-      <div class="slip-ref">Ref No: ${refNo} | Time: ${time}</div>
-      <div class="slip-signs">
-        <div class="slip-sign"><div class="slip-sign-line"></div>Bank Cashier Sign</div>
-        <div class="slip-sign"><div class="slip-sign-line"></div>Customer Signature</div>
-      </div>
-    </div>`;
-
-  const bankColor = type === 'DD' ? '#ffe0c8' : type === 'FD' ? '#e8d8f8' : type === 'RD' ? '#d8f0f8' : '#d4e8ff';
-  const custColor = type === 'DD' ? '#fff3e8' : type === 'FD' ? '#f5f0ff' : type === 'RD' ? '#f0faff' : '#fffde8';
-
-  const html = `
-    <div class="slip-page">
-      <div style="text-align:center; margin-bottom:18px; font-size:11px; color:#666; border-bottom:2px dashed #ccc; padding-bottom:10px;">
-        <strong style="font-size:14px; color:#0a2540;">KOLHAPUR CO-OPERATIVE BANKING PORTAL</strong><br>
-        Transaction Requisition Slip | Printed: ${date} ${time}
-      </div>
-      <div class="slip-wrap">
-        ${makeCopy('BANK', bankColor)}
-        ${makeCopy('CUSTOMER', custColor)}
-      </div>
-      <div style="text-align:center; margin-top:10px; font-size:10px; color:#999; border-top:2px dashed #ccc; padding-top:8px;">
-        — Cut here — | Bank Copy: Submit at Counter | Customer Copy: Retain as Receipt —
-      </div>
-    </div>`;
-
-  document.getElementById('print-area').innerHTML = html;
+  let dr = '';
+  if(type==='NEFT') dr=`<tr><th>Transfer Type</th><td>${details.neftType||''}</td></tr><tr><th>Beneficiary</th><td>${details.benName}</td></tr><tr><th>Bene. A/C No.</th><td>${details.benAcc}</td></tr><tr><th>IFSC Code</th><td>${details.benIFSC}</td></tr>${details.benBank?`<tr><th>Bene. Bank</th><td>${details.benBank}</td></tr>`:''}${details.remarks?`<tr><th>Remarks</th><td>${details.remarks}</td></tr>`:''}`;
+  else if(type==='DD') dr=`<tr><th>In Favour of</th><td>${details.favor}</td></tr><tr><th>Payable at</th><td>${details.payable}</td></tr>${details.purpose?`<tr><th>Purpose</th><td>${details.purpose}</td></tr>`:''}`;
+  else if(type==='FD') dr=`<tr><th>Tenure</th><td>${details.tenure} Months</td></tr><tr><th>Int. Payout</th><td>${details.interest}</td></tr><tr><th>Auto Renewal</th><td>${details.auto==='yes'?'Yes':'No'}</td></tr><tr><th>Nominee</th><td>${details.nominee} (${details.relation||'—'})</td></tr>${details.joint?`<tr><th>Joint Holder</th><td>${details.joint}</td></tr>`:''}`;
+  else if(type==='RD') dr=`<tr><th>Monthly Inst.</th><td>₹ ${parseFloat(amt).toLocaleString('en-IN')}</td></tr><tr><th>Tenure</th><td>${details.tenure} Months</td></tr><tr><th>Month</th><td>${details.month}</td></tr>`;
+  else if(type==='Loan') dr=`<tr><th>Loan Type</th><td>${details.loanType}</td></tr><tr><th>Tenure</th><td>${details.tenure} Months</td></tr><tr><th>Purpose</th><td>${details.purpose}</td></tr>`;
+  else if(type==='Cheque') dr=`<tr><th>Service</th><td>${details.service}</td></tr><tr><th>Cheque Nos.</th><td>${details.nos}</td></tr><tr><th>Leaves</th><td>${details.leaves}</td></tr>`;
+  else if(type==='KYC') dr=`<tr><th>KYC Type</th><td>${details.kycType}</td></tr><tr><th>Doc Ref.</th><td>****${details.docno}</td></tr>${details.newval?`<tr><th>New Value</th><td>${details.newval}</td></tr>`:''}`;
+  else if(type==='AccountService') dr=`<tr><th>Service</th><td>${details.service}</td></tr><tr><th>Nominee</th><td>${details.nominee||'—'}</td></tr><tr><th>Remarks</th><td>${details.remarks||'—'}</td></tr>`;
+  else if(type==='Withdraw') dr=`<tr><th>Mode</th><td>${details.mode==='self'?'Self':'Bearer'}</td></tr><tr><th>Purpose</th><td>${details.purpose}</td></tr>`;
+  else if(type==='Deposit') dr=`<tr><th>Deposit Mode</th><td>${details.tab}</td></tr>${details.chqNo?`<tr><th>Cheque No.</th><td>${details.chqNo}</td></tr>`:''}`;
+  const clr={DD:['#ffe0c8','#fff3e8'],FD:['#e8d8f8','#f5f0ff'],RD:['#d8f0f8','#f0faff'],Loan:['#d4ffe8','#f0fff8']};
+  const [bBg,cBg]=clr[type]||['#d4e8ff','#fffde8'];
+  const mk=(ct,bg)=>`<div class="slip ${ct==='BANK'?'slip-bank-copy':'slip-cust-copy'}" style="background:${bg}">
+    <div class="slip-copy-tag">${ct} COPY</div>
+    <div class="slip-header"><div class="slip-bank-name">${u.bank}</div><div class="slip-type">${type.toUpperCase()} REQUISITION SLIP</div></div>
+    <div class="slip-grid">
+      <div class="slip-cell"><strong>Account No.</strong>${u.acc} (${u.acctype})</div>
+      <div class="slip-cell"><strong>Date</strong>${date}</div>
+      <div class="slip-cell"><strong>Account Holder</strong>${u.name}</div>
+      <div class="slip-cell"><strong>Mobile</strong>${u.mobile}</div>
+    </div>
+    <table class="slip-table"><thead><tr><th colspan="2">${type} Details</th></tr></thead>
+    <tbody>${dr}${amt?`<tr><th><strong>Amount ₹</strong></th><td><strong>₹ ${parseFloat(amt).toLocaleString('en-IN')}</strong></td></tr>`:''}</tbody></table>
+    ${amt?`<div class="slip-words"><strong>Amount in Words</strong>${words}</div>`:''}
+    <div class="slip-ref">Ref No: ${refNo} | Time: ${time}</div>
+    <div class="slip-signs"><div class="slip-sign"><div class="slip-sign-line"></div>Bank Cashier Sign</div><div class="slip-sign"><div class="slip-sign-line"></div>Customer Signature</div></div>
+  </div>`;
+  document.getElementById('print-area').innerHTML=`<div class="slip-page">
+    <div style="text-align:center;margin-bottom:14px;font-size:11px;color:#666;border-bottom:2px dashed #ccc;padding-bottom:10px;">
+      <strong style="font-size:14px;color:#0a2540;">KOLHAPUR CO-OPERATIVE BANKING PORTAL</strong><br>
+      Transaction Requisition Slip | Printed: ${date} ${time} | Ref: ${refNo}
+    </div>
+    <div class="slip-wrap">${mk('BANK',bBg)}${mk('CUSTOMER',cBg)}</div>
+    <div style="text-align:center;font-size:10px;color:#999;border-top:2px dashed #ccc;padding-top:8px;">
+      — Cut here — | Bank Copy: Submit at Counter | Customer Copy: Retain as Receipt —
+    </div></div>`;
   window.print();
 }
 
-function openWithdraw() { showScreen('screen-withdraw'); }
-
-// ========== VOICE ASSISTANT LOGIC ==========
-let recognition;
-let isListening = false;
-let synth = window.speechSynthesis;
-let voiceState = 'IDLE';
-let voiceTempData = {};
-let assistantActive = false;
-
-if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SpeechRecognition();
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  
-  recognition.onstart = function() {
-    isListening = true;
-    document.getElementById('voice-assistant').classList.add('listening');
-  };
-
-  recognition.onresult = function(event) {
-    const transcript = event.results[0][0].transcript.toLowerCase();
-    showVoiceStatus("You said: " + transcript);
-    setTimeout(() => { processVoiceCommand(transcript); }, 300);
-  };
-
-  recognition.onerror = function(event) {
-    if (event.error === 'not-allowed') {
-      assistantActive = false;
-      document.getElementById('voice-assistant').classList.remove('listening');
-      showVoiceStatus("Microphone access denied.");
-    } else if (event.error !== 'no-speech') {
-      showVoiceStatus("Error: " + event.error);
-    }
-  };
-
-  recognition.onend = function() {
-    isListening = false;
-    if (!assistantActive) {
-      document.getElementById('voice-assistant').classList.remove('listening');
-    }
-  };
+// ================================================================
+// VOICE ASSISTANT
+// ================================================================
+let recognition, isListening=false;
+function toggleVoice(){
+  if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){alert('Voice not supported. Use Chrome.');return;}
+  if(isListening){recognition.stop();return;}
+  recognition=new(window.SpeechRecognition||window.webkitSpeechRecognition)();
+  recognition.lang='en-IN';recognition.continuous=false;
+  recognition.onstart=()=>{isListening=true;document.getElementById('voice-assistant').classList.add('listening');showVS('🎤 Listening...');};
+  recognition.onresult=e=>{const t=e.results[0][0].transcript.toLowerCase();showVS('Heard: '+t);handleVoice(t);};
+  recognition.onend=()=>{isListening=false;document.getElementById('voice-assistant').classList.remove('listening');setTimeout(()=>{document.getElementById('voice-status').style.display='none';},3000);};
+  recognition.start();
 }
-
-// Master loop to ensure microphone stays active
-setInterval(() => {
-  if (assistantActive && !isListening && (!synth || !synth.speaking)) {
-    try { recognition.start(); } catch(e) {}
-  }
-}, 1000);
-
-function toggleVoice() {
-  if(!recognition) {
-    alert("Speech recognition not supported in this browser.");
-    return;
-  }
-  if(assistantActive) {
-    // Turn OFF
-    assistantActive = false;
-    voiceState = 'IDLE';
-    recognition.stop();
-    if(synth) synth.cancel();
-    document.getElementById('voice-assistant').classList.remove('listening');
-    showVoiceStatus("Voice assistant deactivated.");
-    setTimeout(() => { document.getElementById('voice-status').style.display = 'none'; }, 3000);
-  } else {
-    // Turn ON
-    assistantActive = true;
-    voiceState = 'IDLE';
-    try { recognition.start(); } catch(e) {}
-    showVoiceStatus("Voice assistant activated. Listening...");
-  }
-}
-
-function showVoiceStatus(msg) {
-  const vs = document.getElementById('voice-status');
-  vs.textContent = msg;
-  vs.style.display = 'block';
-}
-
-function speak(text) {
-  if(synth) {
-    synth.cancel(); // Stop any current speech
-    const utterance = new SpeechSynthesisUtterance(text);
-    synth.speak(utterance);
-    showVoiceStatus("Assistant speaking...");
-  }
-}
-
-const numberMap = {
-  "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
-  "eleven": 11, "twelve": 12, "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "hundred": 100, "thousand": 1000,
-  "do": 2, "teen": 3, "char": 4, "paanch": 5, "chhe": 6, "saat": 7, "aath": 8, "nau": 9, "das": 10, "sau": 100, "hazar": 1000, "hazaaar": 1000
-};
-
-function parseNumber(str) {
-  let num = parseInt(str);
-  if(!isNaN(num)) return num;
-  for(let key in numberMap) {
-    if(str.includes(key)) return numberMap[key];
-  }
-  return null;
-}
-
-function parseSpokenAmount(text) {
-  let t = text.replace(/rupees|rs|rupee|₹/gi, '').trim();
-  let match = t.match(/([\d\.]+)\s*(lakhs?|lak|thousand|hazar|crores?|hundred|sau)/i);
-  if (match) {
-     let num = parseFloat(match[1]);
-     let multStr = match[2].toLowerCase();
-     let mult = 1;
-     if(multStr.includes('lakh') || multStr === 'lak') mult = 100000;
-     else if(multStr.includes('thousand') || multStr.includes('hazar')) mult = 1000;
-     else if(multStr.includes('crore')) mult = 10000000;
-     else if(multStr.includes('hundred') || multStr === 'sau') mult = 100;
-     return num * mult;
-  }
-  let digitMatch = t.match(/(\d+)/);
-  if (digitMatch) {
-    return parseInt(digitMatch[1]);
-  }
-  return null;
-}
-
-function processVoiceCommand(text) {
-  const isYes = text.includes('yes') || text.includes('haan') || text.includes('ha') || text.includes('sure') || text.includes('ok');
-  const isNo = text.includes('no') || text.includes('nahi') || text.includes('nahin') || text.includes('cancel') || text.includes('stop');
-
-  if (isNo && voiceState !== 'IDLE' && !voiceState.includes('CONFIRM')) {
-    voiceState = 'IDLE';
-    speak("Okay, operation cancelled.");
-    return;
-  }
-
-  if (voiceState === 'IDLE') {
-    if (text.includes('register') || text.includes('registration')) {
-      showScreen('screen-reg');
-      voiceState = 'REG_NAME';
-      speak("Starting registration. What is your full name?", true);
-      return;
-    } 
-    
-    let amount = parseSpokenAmount(text);
-
-    if (text.includes('deposit')) {
-      openDeposit();
-      if (amount) {
-        voiceTempData.amt = amount;
-        voiceState = 'DEP_AMT_CONFIRM';
-        speak("You want to deposit " + amount + " rupees. Is that correct?");
-      } else {
-        voiceState = 'DEP_AMT';
-        speak("How much do you want to deposit?");
-      }
-    } else if (text.includes('withdraw')) {
-      openWithdraw();
-      if (amount) {
-        voiceTempData.amt = amount;
-        voiceState = 'WD_AMT_CONFIRM';
-        speak("You want to withdraw " + amount + " rupees. Is that correct?");
-      } else {
-        voiceState = 'WD_AMT';
-        speak("How much do you want to withdraw?");
-      }
-    } else if (text.includes('neft') || text.includes('transfer') || text.includes('rtgs') || text.includes('imps')) {
-      showScreen('screen-neft');
-      if (text.includes('rtgs')) document.getElementById('neft-type').value = 'RTGS';
-      if (text.includes('imps')) document.getElementById('neft-type').value = 'IMPS';
-      if (amount) {
-        voiceTempData.amt = amount;
-        voiceState = 'NEFT_AMT_CONFIRM';
-        speak("You want to transfer " + amount + " rupees. Is that correct?");
-      } else {
-        voiceState = 'NEFT_AMT';
-        speak("How much do you want to transfer?");
-      }
-    } else if (text.includes('fd') || text.includes('fixed deposit')) {
-      showScreen('screen-fd');
-      speak("Fixed deposit screen opened. Please fill the details manually.");
-    } else if (text.includes('dd') || text.includes('demand draft')) {
-      showScreen('screen-dd');
-      speak("Demand draft screen opened. Please fill the details manually.");
-    } else if (text.includes('rd') || text.includes('recurring deposit')) {
-      showScreen('screen-rd');
-      speak("Recurring deposit screen opened. Please fill the details manually.");
-    } else if (text.includes('cheque')) {
-      showScreen('screen-cheque');
-      speak("Cheque services screen opened.");
-    } else if (text.includes('loan')) {
-      showScreen('screen-loan');
-      speak("Loan screen opened.");
-    } else if (text.includes('kyc') || text.includes('update')) {
-      showScreen('screen-kyc');
-      speak("KYC update screen opened.");
-    } else if (text.includes('closure') || text.includes('account service')) {
-      showScreen('screen-closure');
-      speak("Account services screen opened.");
-    } else {
-       speak("Sorry, I didn't catch that. Please say deposit, withdraw, transfer, or another service.");
-    }
-  } else if (voiceState === 'REG_NAME') {
-    document.getElementById('reg-name').value = text;
-    voiceState = 'REG_ACC';
-    speak("Name saved. What is your account number?");
-  } else if (voiceState === 'REG_ACC') {
-    let num = text.replace(/\D/g, '');
-    if (num) {
-      document.getElementById('reg-acc').value = num;
-      voiceState = 'REG_MOB';
-      speak("Account number saved. What is your ten digit mobile number?");
-    } else {
-      speak("Please provide a valid account number.");
-    }
-  } else if (voiceState === 'REG_MOB') {
-    let num = text.replace(/\D/g, '');
-    if (num) {
-      document.getElementById('reg-mobile').value = num;
-      voiceState = 'IDLE';
-      speak("Mobile number saved. Registration is partially complete, please verify details and click Register.");
-    } else {
-      speak("Please provide a valid mobile number.");
-    }
-  } else if (voiceState === 'DEP_AMT') {
-    let amount = parseSpokenAmount(text);
-    if(amount) {
-       voiceTempData.amt = amount;
-       voiceState = 'DEP_AMT_CONFIRM';
-       speak("You said " + amount + " rupees. Is that correct?");
-    } else {
-       speak("Please specify an amount.");
-    }
-  } else if (voiceState === 'DEP_AMT_CONFIRM') {
-    if (isYes) {
-      voiceState = 'DEP_NOTES';
-      speak("Confirmed " + voiceTempData.amt + " rupees. Please specify notes, for example, two notes of 500.");
-    } else if (isNo) {
-      voiceState = 'DEP_AMT';
-      speak("Okay, let's try again. How much do you want to deposit?");
-    } else {
-      speak("Please say yes or no.");
-    }
-  } else if (voiceState === 'DEP_NOTES') {
-    let denomRegex1 = /(\w+)\s*(?:notes?|note|of|ko)?\s*(?:of|ki|ka)?\s*(2000|500|200|100|50|20|10|5|2|1)/g;
-    let denomRegex2 = /(2000|500|200|100|50|20|10|5|2|1)\s*(?:rupees?|rs)?\s*(?:ke|ki|ka|notes?|note)\s*(\w+)/g;
-    
-    let match;
-    let notesAdded = false;
-    
-    while ((match = denomRegex1.exec(text)) !== null) {
-      let qty = parseNumber(match[1]);
-      let val = parseInt(match[2]);
-      if(qty !== null && val) { setDenom(val, qty); notesAdded = true; }
-    }
-    while ((match = denomRegex2.exec(text)) !== null) {
-      let val = parseInt(match[1]);
-      let qty = parseNumber(match[2]);
-      if(qty !== null && val) { setDenom(val, qty); notesAdded = true; }
-    }
-    
-    if(notesAdded) {
-      let t = updateDepTotal();
-      voiceState = 'DEP_CONFIRM';
-      speak("Notes added. Total is " + t + " rupees. Should I generate the slip?");
-    } else if (text.includes('done') || text.includes('generate')) {
-      let t = updateDepTotal();
-      voiceState = 'DEP_CONFIRM';
-      speak("Total is " + t + " rupees. Should I generate the slip?");
-    } else {
-      speak("Please specify notes, or say done.");
-    }
-  } else if (voiceState === 'DEP_CONFIRM') {
-    if (isYes) {
-      generateQR('Deposit');
-      voiceState = 'IDLE';
-      speak("Deposit slip generated. You can print it now.");
-    } else {
-      voiceState = 'IDLE';
-      speak("Okay, slip generation cancelled.");
-    }
-  } else if (voiceState === 'WD_AMT') {
-    let amount = parseSpokenAmount(text);
-    if(amount) {
-       voiceTempData.amt = amount;
-       voiceState = 'WD_AMT_CONFIRM';
-       speak("You said " + amount + " rupees. Is that correct?");
-    } else {
-       speak("Please specify a valid amount.");
-    }
-  } else if (voiceState === 'WD_AMT_CONFIRM') {
-    if (isYes) {
-      document.getElementById('withdraw-amt').value = voiceTempData.amt;
-      voiceState = 'WD_CONFIRM';
-      speak("Confirmed. Should I generate the withdrawal slip?");
-    } else if (isNo) {
-      voiceState = 'WD_AMT';
-      speak("Okay, how much do you want to withdraw?");
-    } else {
-      speak("Please say yes or no.");
-    }
-  } else if (voiceState === 'WD_CONFIRM') {
-    if (isYes) {
-      generateQR('Withdraw');
-      voiceState = 'IDLE';
-      speak("Withdrawal slip generated. You can print it now.");
-    } else {
-      voiceState = 'IDLE';
-      speak("Okay, slip generation cancelled.");
-    }
-  } else if (voiceState === 'NEFT_AMT') {
-    let amount = parseSpokenAmount(text);
-    if(amount) {
-       voiceTempData.amt = amount;
-       voiceState = 'NEFT_AMT_CONFIRM';
-       speak("You said " + amount + " rupees. Is that correct?");
-    } else {
-       speak("Please specify a valid amount.");
-    }
-  } else if (voiceState === 'NEFT_AMT_CONFIRM') {
-    if (isYes) {
-      document.getElementById('neft-amt').value = voiceTempData.amt;
-      voiceState = 'IDLE';
-      speak("Confirmed. Amount set to " + voiceTempData.amt + ". Please fill beneficiary details manually and generate slip.");
-    } else if (isNo) {
-      voiceState = 'NEFT_AMT';
-      speak("Okay, how much do you want to transfer?");
-    } else {
-      speak("Please say yes or no.");
-    }
-  }
-}
-
-function setDenom(val, qty) {
-  const inputs = document.querySelectorAll('.d-q');
-  inputs.forEach(input => {
-    if(parseInt(input.dataset.v) === val) {
-      input.value = qty;
-    }
-  });
+function showVS(m){const vs=document.getElementById('voice-status');vs.textContent=m;vs.style.display='block';}
+function handleVoice(t){
+  if(t.includes('deposit')) openDeposit();
+  else if(t.includes('withdraw')) showScreen('screen-withdraw');
+  else if(t.includes('neft')||t.includes('transfer')) showScreen('screen-neft');
+  else if(t.includes('fixed deposit')||t.includes(' fd')) showScreen('screen-fd');
+  else if(t.includes('recurring')||t.includes(' rd')) showScreen('screen-rd');
+  else if(t.includes('loan')) showScreen('screen-loan');
+  else if(t.includes('demand draft')||t.includes(' dd')) showScreen('screen-dd');
+  else if(t.includes('cheque')) showScreen('screen-cheque');
+  else if(t.includes('kyc')) showScreen('screen-kyc');
+  else if(t.includes('menu')||t.includes('home')) showScreen('screen-menu');
 }
 </script>
 </body>
